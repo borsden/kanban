@@ -1,0 +1,28 @@
+<md-card class="md-whiteframe-z2" ng-class="{
+        'card-priority-1' : card_ctrl.card.priority==1,
+        'card-priority-2' : card_ctrl.card.priority==2,
+         'card-priority-3' : card_ctrl.card.priority==3}">
+    <div layout="row" flex>
+        <div class="card__deadline-div" ng-if="card_ctrl.card.last_date">
+            <md-icon class="material-icons">event</md-icon>
+            <span> {{ card_ctrl.card.last_date|date:'d MMM' }}</span>
+        </div>
+        <span flex></span>
+        <div class="card__deadline-div" ng-if="card_ctrl.card.worker" >
+            <md-icon class="material-icons">assignment_ind</md-icon>
+            <span> {{ card_ctrl.get_worker(card_ctrl.card.worker).short_name }}</span>
+        </div>
+
+    </div>
+    <div class="card" ng-click="card_ctrl.showSettings()">
+
+        <div layout="row" layout-align="center top">
+
+            <h6 class="md-subhead" ng-bind="card_ctrl.card.title"></h6>
+
+        </div>
+        <div>
+            <md-chips ng-model="card_ctrl.card.tags" readonly="true" style="cursor:pointer"></md-chips>
+        </div>
+    </div>
+</md-card>

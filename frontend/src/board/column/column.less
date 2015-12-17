@@ -1,0 +1,31 @@
+.board-column {
+  margin: 10px;
+  position: relative;
+}
+
+.card-container {
+  overflow: auto;
+  min-height: 100px;
+
+}
+
+.board-column-title {
+  text-transform: capitalize;
+}
+
+.board-column__buttons-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.board-column__buttons {
+  position: absolute;
+  right: 5px;
+  top: -24px;
+  //  z-index: 20;
+  transform: scale(1, 1);
+  transition: transform .1s ease-out;
+  & .md-button {
+    margin: 2px 2px;
+  }
+}

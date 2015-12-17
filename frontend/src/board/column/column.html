@@ -1,0 +1,29 @@
+<div layout="row" layout-align="center center" column-header>
+    </div>
+<md-divider vertical></md-divider>
+<div layout="row" class="board-column__buttons-container">
+    <div class="board-column__buttons">
+        <md-button aria-label="Add Card Button" class="md-fab md-raised md-mini"
+                   ng-click="column_ctrl.addCard($event)">
+            <md-tooltip>Добавить карту</md-tooltip>
+            <md-icon class="material-icons" style="color: #3F51B5;">add</md-icon>
+        </md-button>
+    </div>
+
+</div>
+
+<div layout="column" flex class="card-container" dnd-container dnd-sortable-list="board_ctrl.cards">
+    <div layout="column" style="min-height: 100px" ng-show="column_ctrl.add">
+        <md-card class="md-whiteframe-z2" ng-show="column_ctrl.add">
+            <div class="card">
+                <div layout="row" layout-align="center" new-card>
+
+                </div>
+            </div>
+        </md-card>
+    </div>
+    <div dnd-sortable ng-repeat="card in board_ctrl.cards | filter: column_ctrl.isCurrentCategory">
+        <div card="{{ card }}">
+        </div>
+    </div>
+</div>

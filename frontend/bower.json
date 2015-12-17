@@ -1,0 +1,32 @@
+{
+  "name": "Kanban",
+  "version": "0.0.1",
+  "description": "Kanban board",
+  "authors": [
+    "Borsh Denis <borsden@gmail.com>"
+  ],
+  "main": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-animate": "*",
+    "angular-sanitize": "*",
+    "angular-resource": "*",
+    "angular-i18n": "*",
+    "angular-messages": "*",
+    "angular-motion": "*",
+    "angular-ui-router": "*",
+    "angular-material": "#master",
+    "angular-drag-and-drop-lists": "*",
+    "angular-dnd-module": "*",
+
+    "swampdragon-bower": "*"
+
+  }
+}

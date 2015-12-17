@@ -1,0 +1,7 @@
+<div layout="row" class="md-whiteframe-z2" board-header layout-align="center center"></div>
+<div ng-repeat="board in board_ctrl.boards">{{ board.title }}</div>
+<div layout="row"  layout-xs="column" class="board">
+    <md-whiteframe class="md-whiteframe-8dp" flex ng-repeat="column in board_ctrl.columns" layout="column"
+                     column="{{ column }}">
+    </md-whiteframe>
+</div>

@@ -1,0 +1,77 @@
+<md-dialog aria-label="editing" ng-cloak flex="50">
+    <form name="changing_card_form" novalidate
+          ng-submit="card_settings_dialog_ctrl.changeCardConfirm()">
+
+        <md-dialog-content
+                ng-class="{
+        'card-priority-1' : card_settings_dialog_ctrl.card.priority==1,
+        'card-priority-2' : card_settings_dialog_ctrl.card.priority==2,
+         'card-priority-3' : card_settings_dialog_ctrl.card.priority==3}">
+            <div class="md-dialog-content">
+                <div class="card-settings-dialog__buttons">
+                    <md-button aria-label="board settings" class="md-fab md-raised md-mini"
+                               ng-click="card_settings_dialog_ctrl.workOnCard()"
+                               ng-class="{'card-settings-dialog__buttons__worker_button md-primary' : card_settings_dialog_ctrl.workerIsUser()}">
+                        <md-tooltip>Взять задачу</md-tooltip>
+                        <md-icon class="material-icons" style="color:grey">assignment_ind</md-icon>
+                    </md-button>
+                    <md-button aria-label="board settings" class="md-fab md-raised md-mini" ng-click="card_settings_dialog_ctrl.archiveCard()">
+                        <md-tooltip>Завершить задачу</md-tooltip>
+                        <md-icon class="material-icons" style="color:grey">archive</md-icon>
+                    </md-button>
+                    <md-button aria-label="board statistic" class="md-fab md-raised md-mini" ng-click="card_settings_dialog_ctrl.deleteCard()">
+                        <md-tooltip>Удалить задачу</md-tooltip>
+                        <md-icon class="material-icons" style="color:grey">delete</md-icon>
+                    </md-button>
+                </div>
+                <md-input-container md-no-float class="md-block">
+                    <label>Название</label>
+                    <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
+                           ng-model="card_settings_dialog_ctrl.card.title"/>
+
+                    <div ng-messages="changing_card_form.title.$error">
+                        <div ng-message="required">Название не может быть пустым</div>
+                        <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                    </div>
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <label>Описание</label>
+                    <textarea name="description" ng-model="card_settings_dialog_ctrl.card.description"></textarea>
+                </md-input-container>
+                <div layout="column">
+                    <label class="dialog-label">Категории</label>
+                    <md-chips ng-model="card_settings_dialog_ctrl.card.tags" placeholder="Новая категория"
+                              secondary-placeholder="Добавьте категории"></md-chips>
+                </div>
+                <div layout="column" style="margin-top: 20px">
+                    <label class="dialog-label">Приоритет</label>
+                    <md-slider md-discrete ng-model="card_settings_dialog_ctrl.card.priority"
+                               step="1" min="1" max="3" aria-label="priority" class="md-primary">
+                    </md-slider>
+                </div>
+
+                <div flex layout="column">
+                    <md-button ng-click="card_settings_dialog_ctrl.addLastDate()"
+                               ng-if="card_settings_dialog_ctrl.card.last_date==null" flex>
+                        Добавить дедлайн
+                    </md-button>
+                    <div ng-if="card_settings_dialog_ctrl.card.last_date!=null" layout="column"
+                         style="margin-top: 20px">
+                        <label class="dialog-label">Срок</label>
+                        <md-datepicker name="last_date" ng-model="card_settings_dialog_ctrl.card.last_date"
+                                       md-placeholder="Введите дату окончания"
+                                       style="background: inherit!important;">
+                        </md-datepicker>
+                        <div class="error" ng-show="changing_card_form.last_date.$error.valid"
+                             style="margin-left: 35px;">Неверный формат даты
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" ng-if="!card_settings_dialog_ctrl.compareCards()"
+                           class="md-toolbar card-settings-dialog__footer">
+            <md-button class="md-primary md-raised" flex  ng-click="card_settings_dialog_ctrl.saveCard()">Сохранить изменения</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

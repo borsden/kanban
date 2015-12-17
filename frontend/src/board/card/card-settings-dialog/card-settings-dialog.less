@@ -1,0 +1,51 @@
+
+.error {
+  /* Position the error */
+  position: absolute;
+  left: 2px;
+  right: auto;
+  bottom: 7px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 14px;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  color: rgb(244, 67, 54);
+}
+
+.error.ng-hide,
+.error.ng-enter,
+.error.ng-leave.ng-leave-active {
+  bottom: 26px;
+  opacity: 0;
+}
+
+.error.ng-leave,
+.error.ng-enter.ng-enter-active {
+  bottom: 7px;
+  opacity: 1;
+}
+
+.dialog-label {
+  font-size: 75%
+}
+
+.card-settings-dialog__footer {
+  padding: 0;
+  min-height: 0;
+}
+
+.card-settings-dialog__footer button {
+  margin: 0 !important;
+}
+
+.card-settings-dialog__buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.card-settings-dialog__buttons__worker_button{
+//  background-color: red!important;
+  & md-icon {
+    color:white!important;
+  }
+}

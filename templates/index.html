@@ -1,0 +1,31 @@
+{% load static swampdragon_tags %}
+<!doctype html>
+<html lang="en" ng-app="Kanban">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kanban</title>
+    <!-- Стили-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href='{% static "dist/components/components.min.css" %}'/>
+
+    <link rel="stylesheet" type="text/css" href='{% static "dist/styles/main.min.css" %}'>
+    <!-- Скрипты -->
+
+
+
+    <script src='{% static "dist/components/components.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "dist/js/templates.js" %}'></script>
+
+    {% swampdragon_settings %}
+    <script type="text/javascript" src="{% static 'swampdragon/js/dist/swampdragon.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'swampdragon/js/dist/datamapper.js' %}"></script>
+    <script type="text/javascript" src="{% static 'swampdragon/js/angular/services.js' %}"></script>
+
+    <script type="text/javascript" src='{% static "dist/js/main.min.js" %}'></script>
+
+
+</head>
+<body main>
+</body>
+</html>

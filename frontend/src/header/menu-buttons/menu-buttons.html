@@ -1,0 +1,41 @@
+<md-menu md-offset="10 50">
+    <md-button class="md-icon-button" aria-label="Boards" ng-click="$mdOpenMenu()">
+
+        <md-tooltip>Доски</md-tooltip>
+        <md-icon class="material-icons">dashboard</md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item ng-repeat="board in main_ctrl.boards">
+            <md-button>
+                {{ board.title }}
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+<md-menu md-offset="10 50">
+    <md-button class="md-icon-button" aria-label="Notifications" ng-click="$mdOpenMenu()">
+        <md-tooltip>Уведомления</md-tooltip>
+        <md-icon md-menu-origin class="material-icons">notifications</md-icon>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item>
+            <md-button ng-click="ctrl.sampleAction('share', $event)">
+                Share...
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
+<md-menu  md-offset="10 50">
+    <md-button class="md-tools" aria-label="Account" ng-click="$mdOpenMenu()" >
+        <md-tooltip>Пользователь</md-tooltip>
+        <md-icon class="material-icons">account_box</md-icon>
+        <span>Денис Борш</span>
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item>
+            <md-button ng-click="ctrl.sampleAction('share', $event)">
+                Share...
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>
