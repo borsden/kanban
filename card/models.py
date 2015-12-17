@@ -20,7 +20,7 @@ class Card(SelfPublishModel, models.Model):
     description = models.TextField(verbose_name=u'Описание', max_length=1000, null=True, blank=True)
     last_date = models.DateField(verbose_name=u'Дедлайн', blank=True, null=True)
     created_date = models.DateField(auto_now=True, verbose_name=u'Дата создания')
-    tags = models.ManyToManyField(to='card.Tags', verbose_name=u'Теги', related_name='cards', blank=True, null=True)
+    tags = models.ManyToManyField(to='card.Tags', verbose_name=u'Теги', related_name='cards', blank=True)
 
     def __unicode__(self):
         return self.title

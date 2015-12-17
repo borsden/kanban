@@ -5,10 +5,14 @@ from board.models import Board
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
-        fields = ('title', 'members')
+        fields = ('title', 'members',)
+
+
+    # balance = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
+
     def create(self, validated_data):
         try:
-            new_card = Board.objects.create(**validated_data)
-            return new_card
+            new_board = Board.objects.create(**validated_data)
+            return new_board
         except Exception as e:
             print(e)

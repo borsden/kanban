@@ -12,7 +12,7 @@ class CreateBoard(generics.CreateAPIView):
         try:
             # print request.data
             # print request['data']
-            # request.data['user'] = request.user.pk
+            request.data['members'] = request.members.pk
             return super(CreateBoard, self).post(request, *args, **kwargs)
         except Exception as e:
             print e

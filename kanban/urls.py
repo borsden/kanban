@@ -25,5 +25,6 @@ urlpatterns = patterns(
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include('card.urls')),
     url(r'^api/v1/', include('column.urls')),
+    url(r'^api/v1/', include('board.urls')),
     url(r'^api/v1/', include('user.urls')),
 )

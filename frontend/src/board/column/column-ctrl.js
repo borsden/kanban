@@ -6,7 +6,7 @@ function ColumnCtrl($scope, $mdDialog, $mdMedia, CreateCard) {
     vm.isCurrentCategory = function (card) {
         //console.log(card);
         return card.column == vm.column.id
-    }
+    };
 
     vm.showSettings = function (ev) {
         $mdDialog.show({
@@ -33,7 +33,7 @@ function ColumnCtrl($scope, $mdDialog, $mdMedia, CreateCard) {
     vm.add = false;
 
     vm.addCard = function () {
-        vm.adding_card = {title: "Новая задача", column:vm.column.id};
+        vm.adding_card = {title: "Новая задача", column: vm.column.id};
         vm.add = true;
     };
 

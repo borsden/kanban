@@ -7,7 +7,7 @@ angular.module('Kanban')
             // Routes
             $stateProvider
                 .state('board', {
-                    url: '/board',
+                    url: '/board/:id',
                     views: {
                         //Главный вид
                         '': {

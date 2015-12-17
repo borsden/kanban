@@ -11,6 +11,7 @@ function column() {
         //scope: {category: '='},
         restrict: 'A',
         link: function (scope, elem, attrs, ctrl) {
+
             ctrl.column = scope.column;
             ctrl.changing_column = angular.copy(ctrl.column);
             elem.addClass("board-column")

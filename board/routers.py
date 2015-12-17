@@ -4,27 +4,17 @@ from board import router_serializers
 from board.models import Board
 
 
-class CurrentBoardRouter(ModelRouter):
-    route_name = 'current_board'
+class BoardRouter(ModelRouter):
+    route_name = 'board'
     serializer_class = router_serializers.BoardRouterSerializer
     model = Board
 
     def get_object(self, **kwargs):
-        return self.model.objects.get(pk=kwargs['id'])
+        return self.model.objects.get(members__id=self.connection.user.pk, pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        return self.model.objects.filter(**kwargs)
+        print self.connection.user
+        return self.model.objects.filter(members__id=self.connection.user.pk, **kwargs)
 
-# class BoardRouter(ModelRouter):
-#     route_name = 'board'
-#     serializer_class = router_serializers.BoardRouterSerializer
-#     model = Board
-#
-#     def get_object(self, **kwargs):
-#         return self.model.objects.get(pk=kwargs['id'])
-#
-#     def get_query_set(self, **kwargs):
-#         return self.model.objects.filter(**kwargs)
 
-route_handler.register(CurrentBoardRouter)
-# route_handler.register(BoardRouter)
+route_handler.register(BoardRouter)

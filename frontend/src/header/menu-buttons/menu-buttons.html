@@ -5,7 +5,7 @@
         <md-icon class="material-icons">dashboard</md-icon>
     </md-button>
     <md-menu-content width="4">
-        <md-menu-item ng-repeat="board in main_ctrl.boards">
+        <md-menu-item ng-repeat="board in main_ctrl.boards" ui-sref="board({id:{{ board.id }}})">
             <md-button>
                 {{ board.title }}
             </md-button>

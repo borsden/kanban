@@ -8,11 +8,21 @@ function card() {
         restrict: 'EA',
         controller: 'CardCtrl',
         controllerAs: 'card_ctrl',
-        //scope: true,
-        //scope: {category: '='},
         link: function (scope, elem, attrs, ctrl) {
-            ctrl.card = scope.card;
-            ctrl.changing_card = angular.copy(ctrl.card);
+            scope.$watch('board_ctrl.cards', function (cards) {
+                if (cards && cards.length) {
+                    for (var i = 0; i < cards.length; i++) {
+                        if (cards[i]['id'] == attrs.card) {
+                            ctrl.card = cards[i];
+                            ctrl.changing_card = angular.copy(ctrl.card);
+                            break;
+                        }
+                    }
+                }
+            }, true);
+
+
+
         }
     };
     return directive;
