@@ -22,7 +22,7 @@
     "angular-messages": "*",
     "angular-motion": "*",
     "angular-ui-router": "*",
-    "angular-material": "#master",
+    "angular-material": "*",
     "angular-drag-and-drop-lists": "*",
     "angular-dnd-module": "*",
 

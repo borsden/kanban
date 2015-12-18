@@ -13,7 +13,6 @@ class BoardRouter(ModelRouter):
         return self.model.objects.get(members__id=self.connection.user.pk, pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print self.connection.user
         return self.model.objects.filter(members__id=self.connection.user.pk, **kwargs)
 
 

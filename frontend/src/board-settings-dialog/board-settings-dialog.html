@@ -1,0 +1,178 @@
+<md-dialog aria-label="editing" ng-cloak flex="80">
+    <form name="board_form" novalidate
+          ng-submit="board_settings_dialog_ctrl.changeBoardConfirm()">
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container md-no-float class="md-block">
+                    <label>Название</label>
+                    <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
+                           ng-model="board_settings_dialog_ctrl.board.title"/>
+
+                    <div ng-messages="board_form.title.$error">
+                        <div ng-message="required">Название не может быть пустым</div>
+                        <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                    </div>
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <label>Описание</label>
+                    <textarea name="description" ng-model="board_settings_dialog_ctrl.board.description"></textarea>
+                </md-input-container>
+
+
+                <div layout="row" layout-md="column" layout-align="space-between center">
+                    <div flex flex-gt-md="90" flex-gt-lg="90">
+                        <md-input-container md-no-float class="md-block">
+                            <label>Категория</label>
+                            <input type="text" md-maxlength="20" ng-maxlength="20" name="column"
+                                   ng-model="board_settings_dialog_ctrl.adding_column.title"/>
+
+                            <!--<div ng-messages="board_form.column.$error">
+                                <div ng-message="required">Название не может быть пустым</div>
+                                <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                            </div>-->
+                        </md-input-container>
+                    </div>
+                    <div flex layout="row">
+                        <md-button
+                                ng-disabled="board_form.$invalid || board_settings_dialog_ctrl.adding_column.title.length==0"
+                                ng-click="board_settings_dialog_ctrl.addColumn()">Добавить
+                        </md-button>
+                    </div>
+                </div>
+                <div style="margin-top: -25px; padding-top:20px">
+                    <div ng-repeat="column in board_settings_dialog_ctrl.columns">
+
+
+                        <div ng-if="board_settings_dialog_ctrl.changing_column_original!=column">
+                            <md-list-item class="" layout="row">
+                                <div flex flex-gt-md="90" flex-gt-lg="90">
+                                    <span>{{ column.title }}</span>
+                                </div>
+                                <div flex layout="row">
+
+
+                                    <md-button class="md-icon-button " flex aria-label="Cancel" style="height: inherit;"
+                                               ng-click="board_settings_dialog_ctrl.changeColumn(column)">
+
+                                        <md-tooltip>Изменить</md-tooltip>
+                                        <md-icon class="material-icons" style="color: #808080;">edit</md-icon>
+                                    </md-button>
+                                    <md-menu md-position-mode="target-right target">
+                                        <md-button class="md-icon-button " aria-label="Cancel"
+                                                   ng-click="$mdOpenMenu()">
+
+                                            <md-tooltip>Удалить</md-tooltip>
+                                            <md-icon class="material-icons" style="color: #7f1612;">delete</md-icon>
+                                        </md-button>
+                                        <md-menu-content width="4">
+                                            <span style="text-align: center;">Подтвердите удаление</span>
+
+                                            <div layout="row">
+                                                <md-button class="md-raised" flex="50"
+                                                           style="background-color: #7F1612; color: #fff;"
+                                                           ng-click="board_settings_dialog_ctrl.deleteColumn(column)">
+                                                    Удалить
+                                                </md-button>
+                                                <md-button flex>Отменить</md-button>
+                                            </div>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </md-list-item>
+                            <md-divider></md-divider>
+                        </div>
+                        <div layout="row" layout-md="column" layout-align="space-between center"
+                             ng-if="board_settings_dialog_ctrl.changing_column_original==column">
+                            <form name="changing_column_title_form" novalidate
+                                  flex>
+
+                                <div flex flex-gt-md="90" flex-gt-lg="90">
+                                    <md-input-container md-no-float class="md-block">
+                                        <label>Название</label>
+                                        <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
+                                               ng-model="board_settings_dialog_ctrl.changing_column.title"/>
+
+
+                                        <div ng-messages="changing_column_title_form.title.$error">
+                                            <div ng-message="required">Название не может быть пустым</div>
+                                            <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div flex layout="row">
+                                    <md-button class="md-icon-button md-primary" flex aria-label="Confirm"
+                                               ng-disabled="changing_column_title_form.$invalid"
+                                               ng-click="board_settings_dialog_ctrl.changeColumnConfirm()">
+
+                                        <md-tooltip>Сохранить</md-tooltip>
+                                        <md-icon class="material-icons">check</md-icon>
+                                    </md-button>
+                                    <md-button class="md-icon-button " flex aria-label="Cancel"
+                                               ng-click="board_settings_dialog_ctrl.changeColumnCancel()">
+
+                                        <md-tooltip>Отменить</md-tooltip>
+                                        <md-icon class="material-icons">close</md-icon>
+                                    </md-button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <label class="dialog-label">Участники</label>
+
+                <div style="position: relative;" layout="row" flex>
+                    <md-contact-chips flex
+                                      ng-model="board_settings_dialog_ctrl.members"
+                                      md-contacts="board_settings_dialog_ctrl.querySearch($query)"
+                                      md-contact-name="fullname"
+                                      md-contact-image="image"
+                                      md-contact-email="email"
+                                      md-require-match="true"
+                                      md-highlight-flags="i"
+                                      filter-selected="board_settings_dialog_ctrl.filterSelected"
+                                      placeholder="Выберите участников">
+                    </md-contact-chips>
+                    <md-button class="md-raised">Добавить</md-button>
+                </div>
+                <md-list class="fixedRows">
+                    <md-list-item class="md-2-line contact-item"
+                                  ng-repeat="(index, colleague) in board_settings_dialog_ctrl.colleagues"
+                                  ng-if="board_settings_dialog_ctrl.members.indexOf(colleague) < 0"
+                                  style="cursor: pointer"
+                                  ng-click="board_settings_dialog_ctrl.addContact(colleague)">
+                        <img ng-src="{{ colleague.image }}" class="md-avatar colleague_avatar"
+                             alt="{{ colleague.initials }}"/>
+
+                        <div class="md-list-item-text compact">
+                            <h3>{{ colleague.fullname }}</h3>
+
+                            <p>{{ colleague.email }}</p>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-2-line contact-item selected"
+                                  ng-repeat="(index, colleague) in board_settings_dialog_ctrl.members">
+                        <img ng-src="{{ colleague.image }}" class="md-avatar colleague_avatar"
+                             alt="{{ colleague.initials }}"/>
+
+                        <div class="md-list-item-text compact">
+                            <h3>{{ colleague.fullname }}</h3>
+
+                            <p>{{ colleague.email }}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" ng-if="!board_settings_dialog_ctrl.compareCards()"
+                           class="md-toolbar card-settings-dialog__footer">
+            <md-button class="md-primary md-raised" flex ng-click="board_settings_dialog_ctrl.saveBoard()"
+                       ng-if="board_settings_dialog_ctrl.changing">Сохранить изменения
+            </md-button>
+            <md-button class="md-primary md-raised" flex ng-click="board_settings_dialog_ctrl.saveBoard()"
+                       ng-if="!board_settings_dialog_ctrl.changing">Создать доску
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

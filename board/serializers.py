@@ -5,7 +5,7 @@ from board.models import Board
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
-        fields = ('title', 'members',)
+        fields = ('title', 'members', 'description', 'columns')
 
 
     # balance = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)

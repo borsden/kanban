@@ -9,7 +9,6 @@ class CardRouter(ModelRouter):
     route_name = 'card'
     serializer_class = router_serializers.CardRouterSerializer
     model = Card
-    # permission_classes = [LoginRequired()]
 
     def get_object(self, **kwargs):
         return self.model.objects.get(pk=kwargs['id'])

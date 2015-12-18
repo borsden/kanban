@@ -48,6 +48,8 @@ class User(AbstractBaseUser):
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
 
+    colleagues = models.ManyToManyField("self", blank=True, verbose_name=u"Коллеги")
+
     # Значение имени и почты, которое мы используем для отображения, является свойством
     @property
     def name_and_email(self):
@@ -60,6 +62,24 @@ class User(AbstractBaseUser):
             name_and_email += (self.patronymic + u' - ')
         name_and_email += self.email
         return name_and_email
+
+    @property
+    def fullname(self):
+        fullname_ = u''
+        if self.first_name:
+            fullname_ += (self.first_name + u' ')
+        if self.last_name:
+            fullname_ += (self.last_name + u'')
+        return fullname_
+
+    @property
+    def initials(self):
+        initials_ = u''
+        if self.first_name and self.last_name:
+            initials_ += (self.first_name.capitalize()[0] + self.last_name.capitalize()[0])
+        else:
+            initials_ += (self.email.capitalize()[0])
+        return initials_
 
     # В случае, если переменная True, пользователь может является администратором
     is_admin = models.BooleanField(default=False, verbose_name=u'Админ')

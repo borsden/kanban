@@ -5,7 +5,14 @@
         <md-icon class="material-icons">dashboard</md-icon>
     </md-button>
     <md-menu-content width="4">
-        <md-menu-item ng-repeat="board in main_ctrl.boards" ui-sref="board({id:{{ board.id }}})">
+        <md-menu-item ng-click="main_ctrl.newChangeBoard($event)">
+            <md-button>
+                Создать доску...
+            </md-button>
+        </md-menu-item>
+        <md-divider></md-divider>
+        <md-menu-item ng-repeat="board in main_ctrl.boards" ui-sref="board({id:{{ board.id }}})"
+                      ui-sref-active="button__active_board">
             <md-button>
                 {{ board.title }}
             </md-button>

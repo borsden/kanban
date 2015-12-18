@@ -19,10 +19,29 @@
                         <md-tooltip>Завершить задачу</md-tooltip>
                         <md-icon class="material-icons" style="color:grey">archive</md-icon>
                     </md-button>
-                    <md-button aria-label="board statistic" class="md-fab md-raised md-mini" ng-click="card_settings_dialog_ctrl.deleteCard()">
-                        <md-tooltip>Удалить задачу</md-tooltip>
-                        <md-icon class="material-icons" style="color:grey">delete</md-icon>
-                    </md-button>
+
+                    <md-menu md-position-mode="target-right target">
+                        <md-button class="md-fab md-raised md-mini" aria-label="board statistic"
+                                   ng-click="$mdOpenMenu()" style="background-color: rgb(171, 91, 88);">
+
+                            <md-tooltip>Удалить задачу</md-tooltip>
+                            <md-icon class="material-icons" style="color:white">delete</md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <span style="text-align: center;">Подтвердите удаление</span>
+
+                            <div layout="row">
+                                <md-button class="md-raised" flex="50"
+                                           style="background-color: #7F1612; color: #fff;"
+                                           ng-click="card_settings_dialog_ctrl.deleteCard()">
+                                    Удалить
+                                </md-button>
+                                <md-button flex>Отменить</md-button>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>
+
+
                 </div>
                 <md-input-container md-no-float class="md-block">
                     <label>Название</label>

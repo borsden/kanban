@@ -14,6 +14,7 @@ class Board(SelfPublishModel, models.Model):
     serializer_class = router_serializers.BoardRouterSerializer
 
     title = models.CharField(max_length=20, verbose_name=u'Название')
+    description = models.TextField(verbose_name=u'Описание', null=True, blank=True)
     members = models.ManyToManyField(to='user.User', related_name='boards', verbose_name=u'Участники')
 
     def __unicode__(self):
