@@ -18,4 +18,20 @@ angular.module('Kanban')
                     method: 'PUT'
                 }
             });
+        }])
+    .factory('LoginUser', ['$resource', 'Constants',
+        function ($resource, Constants) {
+            return $resource(Constants.apiUrl + 'login/ ', {}, {
+                post: {
+                    method: 'POST'
+                }
+            });
+        }])
+    .factory('LogoutUser', ['$resource', 'Constants',
+        function ($resource, Constants) {
+            return $resource(Constants.apiUrl + 'logout/ ', {}, {
+                get: {
+                    method: 'GET'
+                }
+            });
         }]);

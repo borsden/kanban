@@ -16,8 +16,6 @@ function card() {
                     ctrl.changing_card = angular.copy(ctrl.card);
                 }
             });
-
-
         }
     };
     return directive;

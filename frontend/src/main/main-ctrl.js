@@ -1,9 +1,8 @@
 angular.module('Kanban')
-    .controller('MainCtrl', ['$scope', '$dragon', 'dateFormatter', 'CurrentUser', '$mdDialog', '$mdMedia', MainCtrl]);
-function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia) {
+    .controller('MainCtrl', ['$scope', '$dragon', 'dateFormatter', 'CurrentUser',
+        '$mdDialog', '$mdMedia', 'LogoutUser', '$window', MainCtrl]);
+function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
     var vm = this;
-    vm.user = {id: 1};
-
     CurrentUser.get({}, {}).$promise.then(function (data) {
         vm.user = data;
         $dragon.onReady(function () {
@@ -21,6 +20,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             });
         });
 
+    }, function (data) {
     });
 
 
@@ -69,4 +69,9 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             vm.customFullscreen = (sm === true);
         });
     };
+    vm.exit = function () {
+        LogoutUser.get({}, {}).$promise.then(function (data) {
+            $window.location.reload();
+        });
+    }
 }

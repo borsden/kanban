@@ -1,6 +1,6 @@
 angular.module('Kanban')
-    .controller('CardCtrl', ['$scope', '$mdDialog', '$mdMedia','Cards', CardCtrl]);
-function CardCtrl($scope, $mdDialog, $mdMedia,Cards) {
+    .controller('CardCtrl', ['$scope', '$mdDialog', '$mdMedia', 'Cards', 'ArchiveCard', CardCtrl]);
+function CardCtrl($scope, $mdDialog, $mdMedia, Cards, ArchiveCard) {
     var vm = this;
     vm.get_worker = function (worker) {
         for (var i = 0; i < $scope.board_ctrl.current_board.members.length; i++) {
@@ -27,28 +27,21 @@ function CardCtrl($scope, $mdDialog, $mdMedia,Cards) {
             .then(function (answer) {
                 //console.log(answer);
                 if (answer[0] == 'change') {
-                    //vm.card = angular.copy(answer[1])
                     Cards.update(answer[1], function (data) {
-                        //
-                    },
-                    function () {
+                        },
+                        function () {
 
-                    });
+                        });
                 }
                 else if (answer[0] == 'archive') {
-                    vm.card.archive = true
+                    ArchiveCard.archive({}, {id: vm.card['id']}, function () {
+                    });
                 }
                 else if (answer[0] == 'delete') {
-                    /*for (var i = 0; i < $scope.column_ctrl.column.cards.length; i++) {
-                        if ($scope.column_ctrl.column.cards[i]['id'] == vm.card['id']) {
-                            $scope.column_ctrl.column.cards.splice(i, 1);
-                            break;
-                        }
-                    }*/
-                    Cards.delete({}, {id: vm.card['id']}, function () {});
+                    Cards.delete({}, {id: vm.card['id']}, function () {
+                    });
                 }
             }, function () {
-                //console.log('none')
             });
         $scope.$watch(function () {
             return $mdMedia('sm');

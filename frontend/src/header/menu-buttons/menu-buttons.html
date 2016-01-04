@@ -27,22 +27,40 @@
     <md-menu-content width="4">
         <md-menu-item>
             <md-button ng-click="ctrl.sampleAction('share', $event)">
-                Share...
+                Уведомлений пока нет
             </md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>
-<md-menu  md-offset="10 50">
-    <md-button class="md-tools" aria-label="Account" ng-click="$mdOpenMenu()" >
+<md-menu md-offset="10 50">
+    <md-button class="md-tools" aria-label="Account" ng-click="$mdOpenMenu()">
         <md-tooltip>Пользователь</md-tooltip>
         <md-icon class="material-icons">account_box</md-icon>
         <span>Денис Борш</span>
     </md-button>
     <md-menu-content width="4">
-        <md-menu-item>
-            <md-button ng-click="ctrl.sampleAction('share', $event)">
-                Share...
+        <md-menu-item ui-sref="profile">
+            <md-button>
+                Профиль
             </md-button>
         </md-menu-item>
+        <md-menu-item>
+            <md-button>
+                Коллеги
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button>
+                Настройки
+            </md-button>
+        </md-menu-item>
+
+        <md-divider></md-divider>
+        <md-menu-item ng-click="main_ctrl.exit()">
+            <md-button>
+                Выход
+            </md-button>
+        </md-menu-item>
+
     </md-menu-content>
 </md-menu>

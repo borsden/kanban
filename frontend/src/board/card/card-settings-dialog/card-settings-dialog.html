@@ -15,10 +15,28 @@
                         <md-tooltip>Взять задачу</md-tooltip>
                         <md-icon class="material-icons" style="color:grey">assignment_ind</md-icon>
                     </md-button>
-                    <md-button aria-label="board settings" class="md-fab md-raised md-mini" ng-click="card_settings_dialog_ctrl.archiveCard()">
-                        <md-tooltip>Завершить задачу</md-tooltip>
-                        <md-icon class="material-icons" style="color:grey">archive</md-icon>
-                    </md-button>
+
+
+                    <md-menu md-position-mode="target-right target">
+                        <md-button aria-label="board settings" class="md-fab md-raised md-mini"
+                                   ng-click="$mdOpenMenu()">
+                            <md-tooltip>Завершить задачу</md-tooltip>
+                            <md-icon class="material-icons" style="color:grey">archive</md-icon>
+                        </md-button>
+
+                        <md-menu-content width="4">
+                            <span style="text-align: center;">Завершить задачу?</span>
+
+                            <div layout="row">
+                                <md-button class="md-raised md-primary" flex="50"
+                                           ng-click="card_settings_dialog_ctrl.archiveCard()">
+                                    Завершить
+                                </md-button>
+                                <md-button flex>Отменить</md-button>
+                            </div>
+                        </md-menu-content>
+                    </md-menu>
+
 
                     <md-menu md-position-mode="target-right target">
                         <md-button class="md-fab md-raised md-mini" aria-label="board statistic"
@@ -45,12 +63,12 @@
                 </div>
                 <md-input-container md-no-float class="md-block">
                     <label>Название</label>
-                    <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
+                    <input type="text" md-maxlength="30" required name="title"
                            ng-model="card_settings_dialog_ctrl.card.title"/>
 
                     <div ng-messages="changing_card_form.title.$error">
                         <div ng-message="required">Название не может быть пустым</div>
-                        <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                        <div ng-message="md-maxlength">Максимальное количество знаков - 30</div>
                     </div>
                 </md-input-container>
                 <md-input-container md-no-float class="md-block">
@@ -90,7 +108,9 @@
         </md-dialog-content>
         <md-dialog-actions layout="row" ng-if="!card_settings_dialog_ctrl.compareCards()"
                            class="md-toolbar card-settings-dialog__footer">
-            <md-button class="md-primary md-raised" flex  ng-click="card_settings_dialog_ctrl.saveCard()">Сохранить изменения</md-button>
+            <md-button class="md-primary md-raised" flex ng-click="card_settings_dialog_ctrl.saveCard()">Сохранить
+                изменения
+            </md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

@@ -5,7 +5,8 @@ from card.models import Card
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('priority', 'title', 'worker', 'last_date', 'column', 'tags', 'description', 'created_date')
+        fields = (
+        'priority', 'title', 'worker', 'last_date', 'column', 'archive', 'tags', 'description', 'created_date')
         extra_kwargs = {
             'created_date': {'read_only': True}
         }

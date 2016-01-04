@@ -1,0 +1,46 @@
+<md-toolbar class="app-toolbar md-indigo-theme md-whiteframe-z1 fix-top" ng-if="headerVisible">
+    <div class="md-toolbar-tools">
+        <h2 flex show-gt-sm hide-sm>Kanban</h2>
+        <span flex></span>
+
+        <div class="md-toolbar__navigation">
+            <md-button aria-label="Login" class="md-raised md-accent" ng-click="landing_ctrl.loginAuth('login')">Вход
+            </md-button>
+            <md-button aria-label="Registration" ng-click="landing_ctrl.loginAuth('reg')" style="color:white">
+                Регистрация
+            </md-button>
+        </div>
+
+    </div>
+</md-toolbar>
+<div class="slide slide1" layout="column" layout-align="center center">
+    <br>
+
+    <h1 class="md-display-4" style="color:white; margin-top:0; margin-bottom: 0">Kanban</h1>
+
+    <h2 class="md-display-1" style="color:white">Инструмент для эффективного управления проектами</h2>
+
+    <div layout="row">
+        <md-button aria-label="Login" class="md-raised md-accent" ng-click="landing_ctrl.loginAuth('login')">Вход
+        </md-button>
+        <md-button aria-label="Registration" class="" style="color:white" ng-click="landing_ctrl.loginAuth('reg')">
+            Регистрация
+        </md-button>
+    </div>
+
+
+</div>
+<div class="slide slide2" layout="row" layout-align="center center">
+    <div flex="33" layout-align="center center">
+        <div>
+            <md-icon class="material-icons" style="font-size:96px">thumb_up</md-icon>
+        </div>
+        Стильный
+    </div>
+    <div flex="33" layout-align="center center">
+        Модный
+    </div>
+    <div flex="33" layout-align="center center">
+        Молодежный
+    </div>
+</div>

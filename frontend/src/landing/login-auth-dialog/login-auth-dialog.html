@@ -1,0 +1,40 @@
+<md-dialog aria-label="editing" ng-cloak flex="30">
+
+    <md-dialog-content>
+
+        <md-tabs md-dynamic-height md-stretch-tabs="always" md-selected="login_auth_dialog_ctrl.selected_tab">
+            <md-tab label="Вход">
+                <md-content class="md-padding">
+                    <md-input-container md-no-float class="md-block">
+                        <label>Email</label>
+                        <input type="email" required name="email"
+                               ng-model="login_auth_dialog_ctrl.login_user.email"/>
+
+                        <div ng-messages="board_form.title.$error">
+                            <div ng-message="required">Email не может быть пустым</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container md-no-float class="md-block">
+                        <label>Пароль</label>
+                        <input type="password" required name="password"
+                               ng-model="login_auth_dialog_ctrl.login_user.password"/>
+
+                    </md-input-container>
+                    <div flex layout="row">
+                        <md-button class="md-primary" flex aria-label="Login"
+                                   ng-click="login_auth_dialog_ctrl.loginUser()">Войти
+                        </md-button>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="Регистрация">
+                <md-content class="md-padding">
+                    <p>Регистрация пока недоступна, вход только для существущих пользователей. Сожалею :(</p>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+
+
+    </md-dialog-content>
+</md-dialog>

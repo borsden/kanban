@@ -3,12 +3,12 @@
         <div flex flex-gt-md="65" flex-gt-lg="75">
             <md-input-container md-no-float class="md-block">
                 <label>Название</label>
-                <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
+                <input type="text" md-maxlength="30" required name="title"
                        ng-model="column_ctrl.adding_card.title"/>
 
                 <div ng-messages="adding_card_form.title.$error">
                     <div ng-message="required">Название не может быть пустым</div>
-                    <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+                    <div ng-message="md-maxlength">Максимальное количество знаков - 30</div>
                 </div>
             </md-input-container>
         </div>
