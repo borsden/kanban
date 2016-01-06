@@ -1,16 +1,17 @@
+//Header должен быть фиксированным
 .fix-top {
   position: fixed;
   top: 0;
-  //  max-height: 50px!important;
-  //  min-height: 50px!important;
 }
 
+// Устанавливаем размер иконок навигации в случае мобильного вида
 @media screen and (max-width: 370px) {
   header-menu button.md-button.md-icon-button {
     width: auto
   }
 }
 
+//  В окне выбора доски активная доска подчеркнута и немного другого цвета
 .button__active_board {
   text-decoration: underline;
   background-color: rgb(224, 224, 224);

@@ -1,3 +1,4 @@
+<!--Окно настройки или создания доски-->
 <md-dialog aria-label="editing" ng-cloak flex="80">
     <form name="board_form" novalidate
           ng-submit="board_settings_dialog_ctrl.changeBoardConfirm()">
@@ -27,10 +28,6 @@
                             <input type="text" md-maxlength="20" ng-maxlength="20" name="column"
                                    ng-model="board_settings_dialog_ctrl.adding_column.title"/>
 
-                            <!--<div ng-messages="board_form.column.$error">
-                                <div ng-message="required">Название не может быть пустым</div>
-                                <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
-                            </div>-->
                         </md-input-container>
                     </div>
                     <div flex layout="row">

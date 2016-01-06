@@ -1,22 +1,28 @@
+<!--Кнопки зименения доски, статистики и фильтров. Представляют собой выпадающий список-->
 <div class="md-toolbar__buttons">
+
     <md-fab-speed-dial md-direction="left"
                        class="md-scale"
                        md-open="board_header_ctrl.is_open">
+        <!--Главная кнопка-->
         <md-fab-trigger>
             <md-button aria-label="board menu" class="md-fab md-primary">
                 <md-icon class="material-icons">menu</md-icon>
             </md-button>
         </md-fab-trigger>
         <md-fab-actions>
+            <!--Изменение доски-->
             <md-button aria-label="board settings" class="md-fab md-raised md-mini"
                        ng-click="main_ctrl.newChangeBoard($event, board_ctrl.current_board)">
                 <md-tooltip>Настройки</md-tooltip>
                 <md-icon class="material-icons" style="color:grey">settings</md-icon>
             </md-button>
+            <!--Статистика-->
             <md-button aria-label="board statistic" class="md-fab md-raised md-mini">
                 <md-tooltip>Статистика</md-tooltip>
                 <md-icon class="material-icons" style="color:grey">assessment</md-icon>
             </md-button>
+            <!--Фильтры-->
             <md-button aria-label="board filter" class="md-fab md-raised md-mini">
                 <md-tooltip>Фильтры</md-tooltip>
                 <md-icon class="material-icons" style="color:grey">filter_list</md-icon>
@@ -25,5 +31,5 @@
     </md-fab-speed-dial>
 </div>
 
-<!-- -->
+<!-- Название доски-->
 <h3 class="md-headline" ng-bind="board_ctrl.current_board.title"></h3>

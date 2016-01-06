@@ -1,10 +1,9 @@
 # coding=utf-8
 import json
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
 
-# Create your views here.
-from rest_framework import generics, status, permissions
+from django.contrib.auth import authenticate, login, logout
+
+from rest_framework import status, permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -51,5 +50,4 @@ class LogoutUser(APIView):
 
     def get(self, request, format=None):
         logout(request)
-
         return Response({}, status=status.HTTP_204_NO_CONTENT)

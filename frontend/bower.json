@@ -24,7 +24,7 @@
     "angular-ui-router": "*",
     "angular-material": "*",
     "angular-drag-and-drop-lists": "*",
-    "angular-dnd-module": "*",
+    "dragular": "*",
 
     "swampdragon-bower": "*"
 

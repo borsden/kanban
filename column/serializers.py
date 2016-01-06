@@ -1,13 +1,12 @@
 from rest_framework import serializers
+
 from column.models import Column
 
 
 class ColumnSerializer(serializers.ModelSerializer):
     class Meta:
         model = Column
-        fields = ('title', 'board', 'card_number', 'cards')
-
-    # balance = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
+        fields = ('title', 'board', 'card_number', 'cards',)
 
     def create(self, validated_data):
         try:

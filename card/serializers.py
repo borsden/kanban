@@ -1,3 +1,4 @@
+# coding=utf-8
 from rest_framework import serializers
 from card.models import Card
 
@@ -6,16 +7,15 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = (
-        'priority', 'title', 'worker', 'last_date', 'column', 'archive', 'tags', 'description', 'created_date')
+            'priority', 'title', 'worker', 'last_date', 'column', 'archive', 'tags', 'description', 'created_date',)
         extra_kwargs = {
-            'created_date': {'read_only': True}
+            'created_date': {'read_only': True},
+            'column': {'read_only': True},
         }
 
-    # balance = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
 
-    def create(self, validated_data):
-        try:
-            new_card = Card.objects.create(**validated_data)
-            return new_card
-        except Exception as e:
-            print(e)
+class CardCreateSerializer(CardSerializer):
+    class Meta(CardSerializer.Meta):
+        extra_kwargs = {
+            'created_date': {'read_only': True},
+        }

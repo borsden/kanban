@@ -1,10 +1,9 @@
 angular.module('Kanban')
     .controller('LoginAuthDialogCtrl', ['$mdDialog', 'LoginUser', '$scope', 'dialog_type', '$window', LoginAuthDialogCtrl]);
 function LoginAuthDialogCtrl($mdDialog, LoginUser, $scope, dialog_type, $window) {
-    //$scope
-    var vm = this;
-    //vm.login_user = {email:'', p}
 
+    var vm = this;
+    // Выбор откртыого окна
     if (dialog_type == 'login') {
         vm.selected_tab = 0
     }
@@ -16,10 +15,9 @@ function LoginAuthDialogCtrl($mdDialog, LoginUser, $scope, dialog_type, $window)
     vm.hide = function () {
         $mdDialog.hide();
     };
-
+    // Вход пользователя
     vm.loginUser = function () {
         LoginUser.post(vm.login_user, function (data) {
-            //$scope.main_ctrl.user = data;
             $window.location.reload();
         })
     }

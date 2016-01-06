@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
+
 from column import serializers
 from column.models import Column
 
@@ -10,12 +11,10 @@ class CreateColumn(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            # print request.data
-            # print request['data']
-            # request.data['user'] = request.user.pk
             return super(CreateColumn, self).post(request, *args, **kwargs)
         except Exception as e:
             print e
+            return Response({}, status=status.HTTP_409_CONFLICT)
 
 
 class DetailColumn(generics.RetrieveUpdateDestroyAPIView):
@@ -30,3 +29,4 @@ class DetailColumn(generics.RetrieveUpdateDestroyAPIView):
             return super(DetailColumn, self).update(request, *args, **kwargs)
         except Exception as e:
             print e
+            return Response({}, status=status.HTTP_409_CONFLICT)

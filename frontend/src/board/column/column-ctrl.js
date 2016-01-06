@@ -1,30 +1,24 @@
 angular.module('Kanban')
-    .controller('ColumnCtrl', ['$scope', '$mdDialog', '$mdMedia', 'CreateCard', ColumnCtrl]);
-function ColumnCtrl($scope, $mdDialog, $mdMedia, CreateCard) {
+    .controller('ColumnCtrl', ['CreateCard', ColumnCtrl]);
+function ColumnCtrl(CreateCard) {
     var vm = this;
 
-    vm.isCurrentCategory = function (card) {
-        return card.column == vm.column.id
-    };
-
-
+    // Добавление карточки в данной категории.
     vm.add = false;
-
     vm.addCard = function () {
         vm.adding_card = {title: "Новая задача", column: vm.column.id};
         vm.add = true;
     };
-
+    // Отмена добавления
     vm.addCardCancel = function () {
         vm.adding_card = {};
         vm.add = false;
     };
+    // Подтверждение добавления
     vm.addCardConfirm = function () {
         CreateCard.create(vm.adding_card, function (data) {
             },
             function () {
-                //$scope.showAlertError('При добавлении счета');
-                //$scope.cancel()
             });
         vm.adding_card = {};
         vm.add = false;

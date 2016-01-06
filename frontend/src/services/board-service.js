@@ -1,3 +1,4 @@
+//Сервисы для досок
 angular.module('Kanban')
     .factory('CreateBoard', ['$resource', 'Constants',
         function ($resource, Constants) {

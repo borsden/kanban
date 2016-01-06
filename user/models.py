@@ -5,7 +5,6 @@ from django.contrib.auth.models import (
 )
 
 
-# Создаем модель для администраторов
 class UserManager(BaseUserManager):
     # Функция, вызываемая при создании пользователя
     def create_user(self, email, status=False, password=None):

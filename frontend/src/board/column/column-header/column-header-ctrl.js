@@ -2,6 +2,7 @@ angular.module('Kanban')
     .controller('ColumnHeaderCtrl', ['Columns', ColumnHeaderCtrl]);
 function ColumnHeaderCtrl(Columns) {
     var vm = this;
+    // Изменение названия колонки
     vm.changed = false;
     vm.changeColumnTitle = function () {
         vm.changed = true;
@@ -11,7 +12,6 @@ function ColumnHeaderCtrl(Columns) {
         vm.changed = false;
     };
     vm.changeColumnConfirm = function () {
-        //vm.column = angular.copy(vm.changing_column)
         Columns.update(vm.changing_column, function (data) {
 
         });

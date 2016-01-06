@@ -1,6 +1,7 @@
-<div layout="row" layout-align="center center" column-header>
-</div>
+<!--Название колонки-->
+<div layout="row" layout-align="center center" column-header></div>
 <md-divider vertical></md-divider>
+<!--Добавление карточки-->
 <div layout="row" class="board-column__buttons-container">
     <div class="board-column__buttons">
         <md-button aria-label="Add Card Button" class="md-fab md-raised md-mini"
@@ -12,19 +13,20 @@
 
 </div>
 
-<div layout="column" flex class="card-container" dnd-container dnd-sortable-list="column.cards">
+<div layout="column" flex class="card-container">
+    <!--Шаблон новой карточки-->
     <div layout="column" style="min-height: 100px" ng-show="column_ctrl.add">
         <md-card class="md-whiteframe-z2" ng-show="column_ctrl.add">
             <div class="card">
-                <div layout="row" layout-align="center" new-card>
-
-                </div>
+                <div layout="row" layout-align="center" new-card></div>
             </div>
         </md-card>
     </div>
-    <div dnd-sortable ng-repeat="card_id in column.cards"
-         dnd-on-sortend="board_ctrl.onSortEnd()">
-        <div card="{{ card_id }}">
+    <!--Карточки, принадлежащие данной колонке. Drag'n'drop контейнер.-->
+    <div ng-controller="CardSortCtrl" id="{{ column.id }}" style="min-height: 100px">
+        <div ng-repeat="card in board_ctrl.cards| currentCard:column.id" id="{{ card.id }}">
+            <div card="{{ card }}">
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
-angular
-    .module('Kanban')
+angular.module('Kanban')
     .directive('main', [main]);
 
 function main() {

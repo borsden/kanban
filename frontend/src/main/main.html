@@ -1,5 +1,6 @@
+<!--Главная директива. В случае, если пользователь не авторизован, возвращаем Landing.-->
 <ng-view ng-if="main_ctrl.user">
 <header-menu></header-menu>
 <md-content class="md-content__main" layout="column" ui-view></md-content>
 </ng-view>
-<auth-reg ng-if="!main_ctrl.user"></auth-reg>
+<landing ng-if="!main_ctrl.user"></landing>

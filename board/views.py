@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
+
 from board import serializers
 from board.models import Board
 
@@ -13,6 +14,7 @@ class CreateBoard(generics.CreateAPIView):
             return super(CreateBoard, self).post(request, *args, **kwargs)
         except Exception as e:
             print e
+            return Response({}, status=status.HTTP_409_CONFLICT)
 
 
 class DetailBoard(generics.RetrieveUpdateDestroyAPIView):
@@ -27,3 +29,4 @@ class DetailBoard(generics.RetrieveUpdateDestroyAPIView):
             return super(DetailBoard, self).update(request, *args, **kwargs)
         except Exception as e:
             print e
+            return Response({}, status=status.HTTP_409_CONFLICT)

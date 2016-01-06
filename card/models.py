@@ -34,7 +34,5 @@ class Tags(models.Model):
 
     title = models.CharField(max_length=10, verbose_name=u'Название')
 
-    # board = models.ForeignKey(to='board.Board', verbose_name=u'')
-
     def __unicode__(self):
         return self.title

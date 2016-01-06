@@ -1,11 +1,13 @@
+<!--Форма создания новой карточки-->
 <form name="adding_card_form" novalidate flex ng-submit="column_ctrl.addCardConfirm()">
     <div layout="row" layout-md="column" layout-align="space-between center">
         <div flex flex-gt-md="65" flex-gt-lg="75">
+            <!--Название карточки-->
             <md-input-container md-no-float class="md-block">
                 <label>Название</label>
                 <input type="text" md-maxlength="30" required name="title"
                        ng-model="column_ctrl.adding_card.title"/>
-
+                <!--Уведомления об ошибках заполнения-->
                 <div ng-messages="adding_card_form.title.$error">
                     <div ng-message="required">Название не может быть пустым</div>
                     <div ng-message="md-maxlength">Максимальное количество знаков - 30</div>
@@ -13,6 +15,7 @@
             </md-input-container>
         </div>
         <div flex layout="row">
+            <!--Кнопка сохранения карточки. В случае, если есть ошибки, кнопка становится неактивной.-->
             <md-button class="md-icon-button md-primary" flex aria-label="Confirm"
                        type="submit"
                        ng-disabled="adding_card_form.$invalid">
@@ -20,6 +23,7 @@
                 <md-tooltip>Сохранить</md-tooltip>
                 <md-icon class="material-icons">check</md-icon>
             </md-button>
+            <!--Отмена сохранения карточки.-->
             <md-button class="md-icon-button " flex aria-label="Cancel"
                        ng-click="column_ctrl.addCardCancel()">
 

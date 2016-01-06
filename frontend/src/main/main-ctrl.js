@@ -3,8 +3,11 @@ angular.module('Kanban')
         '$mdDialog', '$mdMedia', 'LogoutUser', '$window', MainCtrl]);
 function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
     var vm = this;
+    // Получаем авторизованного пользователя
     CurrentUser.get({}, {}).$promise.then(function (data) {
+
         vm.user = data;
+        // В случае, если пользователь авторизован, получаем список его досок и список коллег.
         $dragon.onReady(function () {
             $dragon.getList('board', {}).then(function (response) {
                 vm.boards = response.data;
@@ -21,9 +24,10 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
         });
 
     }, function (data) {
+        // Если пользователь не авторизован, будет выполнятся код в данной функции.
     });
 
-
+    // Ловим изменения в списке коллег или досок.
     $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'board_channel') > -1) {
             $scope.$apply(function () {
@@ -37,12 +41,12 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
         }
     });
 
-
+    // Функция форматирования даты
     vm.dateFormatter = function (JSONTime) {
         return dateFormatter(JSONTime);
     };
 
-
+    // Модульное окно создания или изменения доски.
     vm.newChangeBoard = function (ev, board) {
         $mdDialog.show({
             controller: 'BoardSettingsDialogCtrl',
@@ -51,24 +55,17 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
-            scope: $scope,        // use parent scope in template
+            scope: $scope, // Наследуем $scope
             preserveScope: true,
-            fullscreen: $mdMedia('sm') && vm.customFullscreen,
+            //fullscreen: $mdMedia('xs'), //Размер на весь экран
+            //В случае изменения доски, отправляем ее в качестве переменной.
             locals: {
                 board: board
             }
-        })
-            .then(function (answer) {
-                vm.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                vm.status = 'You cancelled the dialog.';
-            });
-        $scope.$watch(function () {
-            return $mdMedia('sm');
-        }, function (sm) {
-            vm.customFullscreen = (sm === true);
         });
     };
+
+    // Выход пользователя
     vm.exit = function () {
         LogoutUser.get({}, {}).$promise.then(function (data) {
             $window.location.reload();

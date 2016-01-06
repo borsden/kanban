@@ -1,12 +1,5 @@
+//Сервис для пользователей
 angular.module('Kanban')
-    //.factory('CreateBoard', ['$resource', 'Constants',
-    //    function ($resource, Constants) {
-    //        return $resource(Constants.apiUrl + 'create_category/ ', {}, {
-    //            create: {
-    //                method: 'POST'
-    //            }
-    //        });
-    //    }])
     .factory('CurrentUser', ['$resource', 'Constants',
         function ($resource, Constants) {
             return $resource(Constants.apiUrl + 'current_user/ ', {id: "@id"}, {
@@ -19,6 +12,7 @@ angular.module('Kanban')
                 }
             });
         }])
+    //Сервис для входа пользователя
     .factory('LoginUser', ['$resource', 'Constants',
         function ($resource, Constants) {
             return $resource(Constants.apiUrl + 'login/ ', {}, {
@@ -27,6 +21,7 @@ angular.module('Kanban')
                 }
             });
         }])
+    //Сервис для выхода
     .factory('LogoutUser', ['$resource', 'Constants',
         function ($resource, Constants) {
             return $resource(Constants.apiUrl + 'logout/ ', {}, {

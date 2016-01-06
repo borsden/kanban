@@ -7,7 +7,6 @@ function newCard() {
         templateUrl: 'new-card.html',
         restrict: 'A',
         link: function (scope, elem, attrs, ctrl) {
-            //elem.addClass("board-column")
         }
     };
     return directive;

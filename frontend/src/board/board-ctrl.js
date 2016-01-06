@@ -1,24 +1,14 @@
 angular.module('Kanban')
-    .controller('BoardCtrl', ['$scope', '$dragon', '$stateParams', 'Columns', BoardCtrl]);
-function BoardCtrl($scope, $dragon, $stateParams, Columns) {
+    .controller('BoardCtrl', ['$scope', '$dragon', '$stateParams', BoardCtrl]);
+function BoardCtrl($scope, $dragon, $stateParams) {
+    //Получаем id текущей доски
     var board_id = $stateParams.id;
     var vm = this;
 
-    vm.onSortEnd = function () {
-        for (var i = 0; i < vm.columns.length; i++) {
-            //    var arr_ = [];
-            //    for (var j = 0; j < vm.columns[i].cards_container.length; j++) {
-            //        arr_.push(vm.columns[i].cards_container[j].id)
-            //    }
-            //    vm.columns.cards = arr_;
-            //    //console.log(vm.columns[i]);
-            Columns.update(vm.columns[i], function (data) {
-            });
-        }
-    };
-
+    // Перменные для ожидания ответа с колонками и карточками от сервера
     vm.dict_done = {columns_done: false, cards_done: false};
     vm.all_done = false;
+    // Если ответ получен, отображаем колонки
     $scope.$watch('board_ctrl.dict_done', function (value) {
         var all_done = true;
         for (var i in value) {
@@ -29,15 +19,15 @@ function BoardCtrl($scope, $dragon, $stateParams, Columns) {
         }
         if (all_done) {
             vm.all_done = all_done
-            console.log(vm.all_done)
         }
 
     }, true);
 
     $dragon.onReady(function () {
-
         $dragon.getSingle('board', {id: board_id}).then(function (response) {
+            // Получаем текущую доску
             vm.current_board = response.data;
+            // Получаем колонки данной доски
             $dragon.getList('column', {board__id: vm.current_board.id}).then(function (response) {
                 vm.columns = response.data;
                 vm.dict_done.columns_done = true;
@@ -45,6 +35,7 @@ function BoardCtrl($scope, $dragon, $stateParams, Columns) {
             $dragon.subscribe('column', 'column_channel', {board__id: vm.current_board.id}).then(function (response) {
                 vm.dataMapper = new DataMapper(response.data);
             });
+            // Получаем карточки данной доски
             $dragon.getList('card', {column__board__id: vm.current_board.id}).then(function (response) {
                 vm.cards = response.data;
                 vm.dict_done.cards_done = true;
@@ -70,26 +61,7 @@ function BoardCtrl($scope, $dragon, $stateParams, Columns) {
         }
         if (indexOf.call(channels, 'card_channel') > -1) {
             $scope.$apply(function () {
-                //console.log(message);
                 vm.dataMapper.mapData(vm.cards, message);
-                if (message.action == "deleted") {
-                    for (var i = 0; i < vm.columns.length; i++) {
-                        var index = vm.columns[i].cards.indexOf(message.data.id);
-                        if (message.data.column == vm.columns[i].id && index != -1) {
-                            vm.columns[i].cards.splice(index, 1);
-                            break;
-                        }
-                    }
-                }
-                else if (message.action == "created") {
-                    for (var i = 0; i < vm.columns.length; i++) {
-                        //var index = vm.columns[i].cards.indexOf(message.data.id);
-                        if (message.data.column == vm.columns[i].id) {
-                            vm.columns[i].cards.push(message.data.id);
-                            break;
-                        }
-                    }
-                }
             });
         }
         if (indexOf.call(channels, 'column_channel') > -1) {

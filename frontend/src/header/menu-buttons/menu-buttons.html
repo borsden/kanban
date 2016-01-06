@@ -1,3 +1,5 @@
+<!--Кнопки навигации-->
+<!--Доски-->
 <md-menu md-offset="10 50">
     <md-button class="md-icon-button" aria-label="Boards" ng-click="$mdOpenMenu()">
 
@@ -5,12 +7,14 @@
         <md-icon class="material-icons">dashboard</md-icon>
     </md-button>
     <md-menu-content width="4">
+        <!--Кнопка создания доски-->
         <md-menu-item ng-click="main_ctrl.newChangeBoard($event)">
             <md-button>
                 Создать доску...
             </md-button>
         </md-menu-item>
         <md-divider></md-divider>
+        <!--Переход на данную доску. У активной доски изменен стиль-->
         <md-menu-item ng-repeat="board in main_ctrl.boards" ui-sref="board({id:{{ board.id }}})"
                       ui-sref-active="button__active_board">
             <md-button>
@@ -19,6 +23,7 @@
         </md-menu-item>
     </md-menu-content>
 </md-menu>
+<!--Уведомления-->
 <md-menu md-offset="10 50">
     <md-button class="md-icon-button" aria-label="Notifications" ng-click="$mdOpenMenu()">
         <md-tooltip>Уведомления</md-tooltip>
@@ -26,12 +31,13 @@
     </md-button>
     <md-menu-content width="4">
         <md-menu-item>
-            <md-button ng-click="ctrl.sampleAction('share', $event)">
+            <md-button>
                 Уведомлений пока нет
             </md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>
+<!--Профиль-->
 <md-menu md-offset="10 50">
     <md-button class="md-tools" aria-label="Account" ng-click="$mdOpenMenu()">
         <md-tooltip>Пользователь</md-tooltip>
@@ -56,6 +62,7 @@
         </md-menu-item>
 
         <md-divider></md-divider>
+        <!--Выход пользователя-->
         <md-menu-item ng-click="main_ctrl.exit()">
             <md-button>
                 Выход

@@ -1,3 +1,4 @@
+//Сервис для колонок
 angular.module('Kanban')
     .factory('CreateColumn', ['$resource', 'Constants',
         function ($resource, Constants) {

@@ -1,7 +1,8 @@
 angular.module('Kanban')
-    .controller('LandingCtrl', ['$scope', 'CurrentUser', '$mdDialog', '$mdMedia', LandingCtrl]);
-function LandingCtrl($scope, CurrentUser, $mdDialog, $mdMedia) {
+    .controller('LandingCtrl', ['$scope', '$mdDialog', LandingCtrl]);
+function LandingCtrl($scope, $mdDialog) {
     var vm = this;
+    // Модальное окно для входа/регистрации
     vm.loginAuth = function (type) {
         $mdDialog.show({
             controller: 'LoginAuthDialogCtrl',
@@ -9,21 +10,12 @@ function LandingCtrl($scope, CurrentUser, $mdDialog, $mdMedia) {
             templateUrl: 'login-auth-dialog.html',
             parent: angular.element(document.body),
             clickOutsideToClose: true,
-            scope: $scope,        // use parent scope in template
+            scope: $scope,        // Наследуем scope.
             preserveScope: true,
+            // Выбираем тип окна: регистрация или вход (модальное окно с возможностью переключения с регистрации на вход)
             locals: {
                 dialog_type: type
-            },
-            fullscreen: $mdMedia('sm') && vm.customFullscreen
+            }
         })
-            .then(function (answer) {
-
-            }, function () {
-            });
-        $scope.$watch(function () {
-            return $mdMedia('sm');
-        }, function (sm) {
-            vm.customFullscreen = (sm === true);
-        });
     };
 }

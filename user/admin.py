@@ -8,8 +8,10 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import User
 
 
-# Форма для создания новых пользователей. Включает все требуемые поля, а также повторение пароля.
 class UserCreationForm(forms.ModelForm):
+    """
+    Форма для создания новых пользователей. Включает все требуемые поля, а также повторение пароля.
+    """
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=False)
 
@@ -34,8 +36,8 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-# Форма изменения пользователя. Пароль хранится в виде хеша.
 class UserChangeForm(forms.ModelForm):
+    """Форма изменения пользователя. Пароль хранится в виде хеша."""
     password = ReadOnlyPasswordHashField()
 
     class Meta:
@@ -43,14 +45,11 @@ class UserChangeForm(forms.ModelForm):
         fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin', 'colleagues')
 
     def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
         return self.initial["password"]
 
 
 class MyUserAdmin(UserAdmin):
-    # Отображение всех пользователей
+    """Отображение всех пользователей"""
     form = UserChangeForm
     add_form = UserCreationForm
 
@@ -64,8 +63,7 @@ class MyUserAdmin(UserAdmin):
         (u'Административная часть', {'fields': ('is_admin',)}),
         (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'colleagues')}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
