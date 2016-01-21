@@ -2,7 +2,8 @@
 <div layout="row" class="md-whiteframe-z2" board-header layout-align="center center"></div>
 <!--Колонки доски-->
 <div layout="row" layout-xs="column" class="board" ng-if="board_ctrl.all_done">
-    <md-whiteframe class="md-whiteframe-8dp" flex ng-repeat="column in board_ctrl.columns" layout="column"
-                     column="{{ column }}">
+    <md-whiteframe class="md-whiteframe-8dp" flex ng-repeat="column in board_ctrl.columns| orderBy:'position'"
+                   layout="column"
+                   column="{{ column }}">
     </md-whiteframe>
 </div>

@@ -1,3 +1,4 @@
+import ast
 from rest_framework import generics, status
 from rest_framework.response import Response
 
@@ -11,22 +12,32 @@ class CreateBoard(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
+            request.data['members'].append(self.request.user.id)
+        except Exception as e:
+            return Response({}, status=status.HTTP_409_CONFLICT)
+        try:
             return super(CreateBoard, self).post(request, *args, **kwargs)
         except Exception as e:
-            print e
             return Response({}, status=status.HTTP_409_CONFLICT)
 
-
-class DetailBoard(generics.RetrieveUpdateDestroyAPIView):
-    def get_queryset(self):
-        return Board.objects.all()
 
     def get_serializer_class(self):
         return serializers.BoardSerializer
 
+
+class DetailBoard(generics.RetrieveUpdateDestroyAPIView):
+    def get_serializer_class(self):
+        return serializers.BoardSerializer
+
+    def get_queryset(self):
+        return Board.objects.all()
+
     def put(self, request, *args, **kwargs):
+        try:
+            request.data['members'].append(self.request.user.id)
+        except Exception as e:
+            return Response({}, status=status.HTTP_409_CONFLICT)
         try:
             return super(DetailBoard, self).update(request, *args, **kwargs)
         except Exception as e:
-            print e
             return Response({}, status=status.HTTP_409_CONFLICT)

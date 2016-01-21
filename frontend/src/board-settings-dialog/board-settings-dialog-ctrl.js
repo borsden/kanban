@@ -1,31 +1,48 @@
 angular.module('Kanban')
-    .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard', 'board', BoardSettingsDialogCtrl]);
-function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, board) {
+    .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard', 'ChangeBoardColumns', 'board', 'columns', BoardSettingsDialogCtrl]);
+function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, ChangeBoardColumns, board, columns) {
     var vm = this;
 
+
+    vm.columns = [];
+    vm.first_columns = [];
+
     vm.board = {};
+    // Случай, если мы редактируем доску
     if (board) {
         vm.changing = true;
         vm.board = angular.copy(board);
-
+        // Если мы редактируем доску, то добавим в список колонок существующие колонки
+        if (board.columns) {
+            if (columns) {
+                // Cортируем колонки по их порядку
+                columns.sort(function (a, b) {
+                    return a.position - b.position
+                });
+                var column;
+                for (var i = 0; i < columns.length; i++) {
+                    column = columns[i];
+                    vm.columns.push({id: column.id, title: column.title, position: i})
+                }
+                vm.first_columns = angular.copy(vm.columns);
+            }
+        }
     }
-    vm.filterSelected = true;
+    //Сравниваем доски и категории, и если они не равны, то отображаем кнопку изменения
+    vm.compareBoards = function () {
+        return (angular.equals(vm.board, board) && angular.equals(vm.columns, vm.first_columns))
+    };
 
+    vm.filterSelected = true;
+    // Список пользователей.
     vm.members = [];
+    // Добавление в список пользователей
     vm.addContact = function (contact) {
         vm.members.push(contact)
     };
-    vm.querySearch = function (query) {
-        return query ?
-            vm.colleagues.filter(createFilterFor(query)) : [];
-    };
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(colleague) {
-            return (colleague.fullname.toLowerCase().indexOf(lowercaseQuery) != -1);
-        };
-    }
 
+    // Просматриваем список коллег, для каждого коллеги добавим изображение (пока рандомное).
+    // В случае изменения существующей доски, пробегаемся по списку и добавляем пользователей, которые уже работают над ней.
     $scope.$watch('main_ctrl.colleagues', function (colleagues) {
         vm.colleagues = colleagues;
         vm.colleagues[0].image = 'http://lorempixel.com/50/50/people?1';
@@ -42,62 +59,34 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, board) 
         }
     }, true);
 
-
-    vm.columns = [];
-    vm.adding_column = {title: ''};
-    vm.addColumn = function () {
-        vm.columns.push(vm.adding_column);
-        vm.adding_column = {title: ''};
-    };
-    vm.deleteColumn = function (column) {
-        //vm.columns.push(vm.adding_column);
-        //vm.adding_column = {title: ''};
-        for (var i = 0; i < vm.columns.length; i++) {
-            if (vm.columns[i] == column) {
-                vm.columns.splice(i, 1);
-                break;
-            }
-        }
-    };
-
-    vm.changeColumn = function (column) {
-        vm.changing_column_original = column;
-        vm.changing_column = angular.copy(column)
-    };
-    vm.changeColumnConfirm = function () {
-        for (var i = 0; i < vm.columns.length; i++) {
-            if (vm.columns[i] == vm.changing_column_original) {
-                vm.columns[i] = vm.changing_column;
-                break;
-            }
-        }
-        vm.changing_column_original = {};
-        vm.changing_column = {};
-    };
-    vm.changeColumnCancel = function () {
-        vm.changing_column_original = {};
-        vm.changing_column = {};
-    };
-
-
+    //После сохранения изменения в доске, если они были, сохраняются изменения в колонках
     vm.saveBoard = function () {
-        vm.board.members = [$scope.main_ctrl.user.id];
+        vm.board.members = [];
         angular.forEach(vm.members, function (colleague) {
             vm.board.members.push(colleague.id)
 
         });
-        if (vm.changing) {
-            Boards.update(vm.board, function (data) {
-            });
-        }
-        else {
-            CreateBoard.create(vm.board, function (data) {
-                },
-                function () {
-                    //$scope.showAlertError('При добавлении счета');
-                    //$scope.cancel()
+        if (vm.board != board) {
+            if (vm.changing) {
+                Boards.update(vm.board, function (data) {
+                    // Если есть изменения в колонках, сохраняем их
+                    if (vm.columns != vm.first_columns) {
+                        ChangeBoardColumns.post({columns: vm.columns, id: data.id}, function (result) {
+                        })
+                    }
                 });
+            }
+            else {
+                CreateBoard.create(vm.board, function (data) {
+                    ChangeBoardColumns.post({columns: vm.columns, id: data.id}, function (result) {
+                    })
+                });
+            }
         }
+
+
+        vm.cancel();
+
     };
 
 

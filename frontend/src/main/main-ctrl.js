@@ -30,6 +30,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
     // Ловим изменения в списке коллег или досок.
     $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'board_channel') > -1) {
+            //console.log(message);
             $scope.$apply(function () {
                 vm.dataMapper.mapData(vm.boards, message);
             });
@@ -47,7 +48,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
     };
 
     // Модульное окно создания или изменения доски.
-    vm.newChangeBoard = function (ev, board) {
+    vm.newChangeBoard = function (ev, board, columns) {
         $mdDialog.show({
             controller: 'BoardSettingsDialogCtrl',
             controllerAs: 'board_settings_dialog_ctrl',
@@ -58,9 +59,10 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             scope: $scope, // Наследуем $scope
             preserveScope: true,
             //fullscreen: $mdMedia('xs'), //Размер на весь экран
-            //В случае изменения доски, отправляем ее в качестве переменной.
+            //В случае изменения доски, отправляем ее и ее колонки в качестве переменной.
             locals: {
-                board: board
+                board: board,
+                columns: columns
             }
         });
     };

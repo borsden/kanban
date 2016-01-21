@@ -29,6 +29,7 @@ function BoardCtrl($scope, $dragon, $stateParams) {
             vm.current_board = response.data;
             // Получаем колонки данной доски
             $dragon.getList('column', {board__id: vm.current_board.id}).then(function (response) {
+
                 vm.columns = response.data;
                 vm.dict_done.columns_done = true;
             });

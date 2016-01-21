@@ -13,6 +13,6 @@ class ColumnRouter(ModelRouter):
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        return self.model.objects.filter(**kwargs)
+        return self.model.objects.filter(**kwargs).order_by('position')
 
 route_handler.register(ColumnRouter)

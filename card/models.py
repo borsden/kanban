@@ -14,7 +14,8 @@ class Card(SelfPublishModel, models.Model):
     serializer_class = router_serializers.CardRouterSerializer
 
     title = models.CharField(max_length=30, verbose_name=u'Название')
-    column = models.ForeignKey(to='column.Column', verbose_name=u'Категория', related_name='cards')
+    column = models.ForeignKey(to='column.Column', verbose_name=u'Категория', related_name='cards', null=True,
+                               blank=True)
     worker = models.ForeignKey(to='user.User', verbose_name=u'Работник', related_name='cards', blank=True, null=True)
     priority = models.IntegerField(default=1)
     description = models.TextField(verbose_name=u'Описание', max_length=1000, null=True, blank=True)

@@ -23,7 +23,6 @@
     "angular-motion": "*",
     "angular-ui-router": "*",
     "angular-material": "*",
-    "angular-drag-and-drop-lists": "*",
     "dragular": "*",
 
     "swampdragon-bower": "*"
