@@ -1,0 +1,59 @@
+<div style="position: relative">
+    <img ng-src="{{main_ctrl.user.avatar}}" alt="avatar" style="width: 100%"/>
+    <md-button class="md-fab md-accent"
+               aria-label="Boards"
+               ng-click=""
+               style="position: absolute; right: 0; bottom: -30px;">
+
+        <md-tooltip>Изменить аватар</md-tooltip>
+        <label for="fileInput">
+            <md-icon class="material-icons">edit</md-icon>
+        </label>
+    </md-button>
+    <input type="file" id="fileInput" style="display:none;"/>
+
+</div>
+<form name="profile_form" novalidate>
+    <div flex style="position: relative">
+        <md-input-container md-no-float class="md-block" style="margin-bottom: 5px;">
+            <label>Email</label>
+            <input type="email" required name="email" ng-model="main_ctrl.user.email" disabled/>
+
+            <div ng-messages="profile_form.email.$error">
+                <div ng-message="required">Email не может быть пустым</div>
+                <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container md-no-float
+                            class="md-block profile_user_information__input_container">
+            <label>Имя</label>
+            <input type="text" name="first_name" ng-model="main_ctrl.user.first_name"/>
+
+            <div ng-messages="profile_form.first_name.$error">
+                <div ng-message="md-maxlength">Максимальное количество знаков - 15</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block profile_user_information__input_container">
+            <label>Фамилия</label>
+            <input type="text" name="last_name" ng-model="main_ctrl.user.last_name"/>
+
+            <div ng-messages="profile_form.last_name.$error">
+                <div ng-message="md-maxlength">Максимальное количество знаков - 30</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block profile_user_information__input_container">
+            <label>Отчество</label>
+            <input type="text" name="patronymic" ng-model="main_ctrl.user.patronymic"/>
+
+            <div ng-messages="profile_form.patronymic.$error">
+                <div ng-message="md-maxlength">Максимальное количество знаков - 20</div>
+            </div>
+        </md-input-container>
+
+        <md-button class="md-primary md-raised" style="width: 100%; margin:0"
+                   ng-click="user_information_ctrl.saveProfileChanged()"
+                   ng-if="user_information_ctrl.profile_changed()">Сохранить изменения
+        </md-button>
+    </div>
+</form>

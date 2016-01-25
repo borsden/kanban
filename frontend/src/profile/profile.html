@@ -1,0 +1,72 @@
+<div layout="row">
+    <md-whiteframe class="md-whiteframe-8dp" flex="25">
+        <user-information></user-information>
+    </md-whiteframe>
+    <span flex></span>
+    <span flex></span>
+    <md-whiteframe class="md-whiteframe-8dp" flex="70" layout="row">
+
+        <div flex>
+            <div style="position: relative">
+                <span class="md-headline column_header" layout="row" layout-align="center center">
+                Доски
+            </span>
+                <md-button class="md-fab md-raised md-mini"
+                           aria-label="Создать доску"
+                           ng-click="main_ctrl.newChangeBoard($event)"
+                           style="position: absolute; right: 0; bottom: -24px;">
+
+                    <md-tooltip>Создать доску</md-tooltip>
+                    <md-icon class="material-icons">add</md-icon>
+                </md-button>
+
+
+                <md-divider vertical></md-divider>
+            </div>
+
+            <md-list>
+                <md-list-item class="md-2-line" ng-repeat="board in main_ctrl.boards"
+                              ui-sref="board({id:{{ board.id }}})">
+                    <span class="profile_board__user_type">П</span>
+
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{board.title}}</h3>
+
+                        <p>
+                            {{board.description}}
+                        </p>
+                    </div>
+                    <md-divider vertical></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+        <md-divider horizontal></md-divider>
+
+        <div flex>
+            <span class="md-headline column_header" layout="row" layout-align="center center">
+            Ваши карточки
+            </span>
+            <md-divider vertical></md-divider>
+
+            <md-list>
+                <md-list-item class="md-2-line" ng-repeat="card in profile_ctrl.user_cards"
+                              ng-class="{
+                        'card-priority-1' : card.priority==1,
+                        'card-priority-2' : card.priority==2,
+                        'card-priority-3' : card.priority==3}">
+                    <div class="md-list-item-text" layout="column" style="position:relative;">
+                        <h3>{{card.title}}</h3>
+
+                        <p>
+                            {{card.description}}
+                        </p>
+                    </div>
+                    <md-divider vertical></md-divider>
+                </md-list-item>
+            </md-list>
+
+        </div>
+        <md-divider horizontal></md-divider>
+
+    </md-whiteframe>
+</div>

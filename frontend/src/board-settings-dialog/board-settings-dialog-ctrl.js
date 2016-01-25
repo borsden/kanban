@@ -45,7 +45,6 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, ChangeB
     // В случае изменения существующей доски, пробегаемся по списку и добавляем пользователей, которые уже работают над ней.
     $scope.$watch('main_ctrl.colleagues', function (colleagues) {
         vm.colleagues = colleagues;
-        vm.colleagues[0].image = 'http://lorempixel.com/50/50/people?1';
         if (vm.changing) {
             for (var i = 0; i < vm.board.members.length; i++) {
                 for (var j = 0; j < vm.colleagues.length; j++) {

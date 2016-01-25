@@ -24,6 +24,8 @@
     "angular-ui-router": "*",
     "angular-material": "*",
     "dragular": "*",
+    "ngImgCrop": "*",
+    "ng-file-upload": "*",
 
     "swampdragon-bower": "*"
 

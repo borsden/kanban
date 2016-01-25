@@ -1,0 +1,22 @@
+<!--Окно изменения аватара-->
+<md-dialog aria-label="editing" ng-cloak flex="40">
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="crop_area" flex>
+                <img-crop image="changing_avatar_dialog_ctrl.first_image"
+                          result-image="changing_avatar_dialog_ctrl.cropped_image"></img-crop>
+            </div>
+            <div flex layout="row" layout-align="center center">Аватар:</div>
+            <div layout="row" layout-align="center center"><img ng-src="{{changing_avatar_dialog_ctrl.cropped_image}}"/>
+            </div>
+        </div>
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row" class="md-toolbar card-settings-dialog__footer">
+        <md-button class="md-primary md-raised"
+                   style="width: 100%;"
+                   ng-click="changing_avatar_dialog_ctrl.saveAvatar()">
+            Сохранить
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,4 +1,4 @@
-<!--Кнопки зименения доски, статистики и фильтров. Представляют собой выпадающий список-->
+<!--Кнопки изменения доски, статистики и фильтров. Представляют собой выпадающий список-->
 <div class="md-toolbar__buttons">
 
     <md-fab-speed-dial md-direction="left"
@@ -15,17 +15,17 @@
             <md-button aria-label="board settings" class="md-fab md-raised md-mini"
                        ng-click="main_ctrl.newChangeBoard($event, board_ctrl.current_board, board_ctrl.columns)">
                 <md-tooltip>Настройки</md-tooltip>
-                <md-icon class="material-icons" style="color:grey">settings</md-icon>
+                <md-icon class="material-icons">settings</md-icon>
             </md-button>
             <!--Статистика-->
             <md-button aria-label="board statistic" class="md-fab md-raised md-mini">
                 <md-tooltip>Статистика</md-tooltip>
-                <md-icon class="material-icons" style="color:grey">assessment</md-icon>
+                <md-icon class="material-icons">assessment</md-icon>
             </md-button>
             <!--Фильтры-->
             <md-button aria-label="board filter" class="md-fab md-raised md-mini">
                 <md-tooltip>Фильтры</md-tooltip>
-                <md-icon class="material-icons" style="color:grey">filter_list</md-icon>
+                <md-icon class="material-icons">filter_list</md-icon>
             </md-button>
         </md-fab-actions>
     </md-fab-speed-dial>

@@ -61,7 +61,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password', 'status')}),
         (u'Административная часть', {'fields': ('is_admin',)}),
-        (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'colleagues')}),
+        (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'colleagues', 'avatar')}),
     )
 
     add_fieldsets = (

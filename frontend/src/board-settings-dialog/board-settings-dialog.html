@@ -31,11 +31,13 @@
         </md-dialog-content>
         <md-dialog-actions layout="row" ng-if="!board_settings_dialog_ctrl.compareCards()"
                            class="md-toolbar card-settings-dialog__footer">
-            <md-button class="md-primary md-raised" flex ng-click="board_settings_dialog_ctrl.saveBoard()"
+            <md-button class="md-primary md-raised" style="width: 100%;"
+                       ng-click="board_settings_dialog_ctrl.saveBoard()"
                        ng-if="board_settings_dialog_ctrl.changing && !board_settings_dialog_ctrl.compareBoards()">
                 Сохранить изменения
             </md-button>
-            <md-button class="md-primary md-raised" flex ng-click="board_settings_dialog_ctrl.saveBoard()"
+            <md-button class="md-primary md-raised" style="width: 100%;"
+                       ng-click="board_settings_dialog_ctrl.saveBoard()"
                        ng-if="!board_settings_dialog_ctrl.changing">Создать доску
             </md-button>
         </md-dialog-actions>

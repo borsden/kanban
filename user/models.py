@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 
 class UserManager(BaseUserManager):
@@ -41,13 +43,22 @@ class User(AbstractBaseUser):
         unique=True,
     )
     # Имя
-    first_name = models.CharField(max_length=20, verbose_name=u"Имя", blank=True)
+    first_name = models.CharField(max_length=15, verbose_name=u"Имя", blank=True)
     # Фамилия
     last_name = models.CharField(max_length=30, verbose_name=u"Фамилия", blank=True)
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
-
+    # Коллеги
     colleagues = models.ManyToManyField("self", blank=True, verbose_name=u"Коллеги")
+
+    # Аватар
+    avatar = models.ImageField(verbose_name=u'Аватар', blank=True, upload_to='avatars')
+    # Специальная библиотека django-imagekit, которая сохраняет полученную картинку jpeg'ом
+    # с определенным размером, качеством и рандомным именем.
+    # avatar_thumbnail = ImageSpecField(source='avatar',
+    #                                   processors=[ResizeToFill(300, 300)],
+    #                                   format='JPEG',
+    #                                   options={'quality': 60})
 
     # Значение имени и почты, которое мы используем для отображения, является свойством
     @property
@@ -105,7 +116,7 @@ class User(AbstractBaseUser):
     # Имеет ли пользователь определенные права доступа
     def has_perm(self, perm, obj=None):
         # Так как данный метод вызывается после метода is_staff,
-        #  укажем для простоты, что имеет, независимо от требуемого разрешения
+        # укажем для простоты, что имеет, независимо от требуемого разрешения
         return True
 
     # Имеет ли пользователь доступ к приложению `app_label`?

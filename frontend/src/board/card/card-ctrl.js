@@ -3,13 +3,13 @@ angular.module('Kanban')
 function CardCtrl($scope, $mdDialog, $mdMedia, Cards, ArchiveCard) {
     var vm = this;
     // Функция получения имени работника
-    vm.get_worker = function (worker) {
-        for (var i = 0; i < $scope.board_ctrl.current_board.members.length; i++) {
-            if ($scope.board_ctrl.current_board.members[i]['id'] == worker) {
-                return $scope.board_ctrl.current_board.members[i]
-            }
-        }
-    };
+    /*
+     vm.get_worker = function (worker) {
+     for (var i = 0; i < $scope.board_ctrl.current_board.members.length; i++) {
+     if ($scope.board_ctrl.current_board.members[i]['id'] == worker) {
+     return $scope.board_ctrl.current_board.members[i]
+     }}};
+     */
     //Модульное окно изменения карточки
     vm.showSettings = function (ev) {
         $mdDialog.show({

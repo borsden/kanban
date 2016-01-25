@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
+    'imagekit',
+
     'swampdragon',
     'swampdragon_auth',
 
@@ -124,12 +126,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# TEMPLATE_DIRS = (
-#     os.path.join(BASE_DIR,  'templates'),
-# )
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 DRAGON_URL = 'http://127.0.0.1:9999'
 # SWAMP_DRAGON_CONNECTION = ('swampdragon.connections.sockjs_connection.DjangoSubscriberConnection', '/data')

@@ -15,8 +15,10 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url, patterns, include
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
+from kanban import settings
 
 admin.autodiscover()
 urlpatterns = patterns(
@@ -27,4 +29,4 @@ urlpatterns = patterns(
     url(r'^api/v1/', include('column.urls')),
     url(r'^api/v1/', include('board.urls')),
     url(r'^api/v1/', include('user.urls')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

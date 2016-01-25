@@ -16,7 +16,9 @@
         </div>
         <div flex layout="row">
             <!--Кнопка сохранения карточки. В случае, если есть ошибки, кнопка становится неактивной.-->
-            <md-button class="md-icon-button md-primary" flex aria-label="Confirm"
+            <md-button class="md-icon-button md-primary"
+                       style="width: 50%;"
+                       aria-label="Confirm"
                        type="submit"
                        ng-disabled="adding_card_form.$invalid">
 
@@ -24,7 +26,9 @@
                 <md-icon class="material-icons">check</md-icon>
             </md-button>
             <!--Отмена сохранения карточки.-->
-            <md-button class="md-icon-button " flex aria-label="Cancel"
+            <md-button class="md-icon-button "
+                       style="width: 50%;"
+                       aria-label="Cancel"
                        ng-click="column_ctrl.addCardCancel()">
 
                 <md-tooltip>Отменить</md-tooltip>

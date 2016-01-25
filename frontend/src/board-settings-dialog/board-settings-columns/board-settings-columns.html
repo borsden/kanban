@@ -31,7 +31,7 @@
                         <div flex layout="row">
 
 
-                            <md-button class="md-icon-button " flex aria-label="Cancel" style="height: inherit;"
+                            <md-button class="md-icon-button " aria-label="Cancel" style="height: inherit; width: 50%;"
                                        ng-click="board_settings_columns_ctrl.changeColumn(column)">
 
                                 <md-tooltip>Изменить</md-tooltip>
@@ -48,12 +48,12 @@
                                     <span style="text-align: center;">Подтвердите удаление</span>
 
                                     <div layout="row">
-                                        <md-button class="md-raised" flex="50"
-                                                   style="background-color: #7F1612; color: #fff;"
+                                        <md-button class="md-raised"
+                                                   style="background-color: #7F1612; color: #fff; width: 50%;"
                                                    ng-click="board_settings_columns_ctrl.deleteColumn(column)">
                                             Удалить
                                         </md-button>
-                                        <md-button flex>Отменить</md-button>
+                                        <md-button style="width: 100%;">Отменить</md-button>
                                     </div>
                                 </md-menu-content>
                             </md-menu>
@@ -80,14 +80,14 @@
                             </md-input-container>
                         </div>
                         <div flex layout="row">
-                            <md-button class="md-icon-button md-primary" flex aria-label="Confirm"
+                            <md-button class="md-icon-button md-primary" style="width: 50%;" aria-label="Confirm"
                                        ng-disabled="changing_column_title_form.$invalid"
                                        ng-click="board_settings_columns_ctrl.changeColumnConfirm()">
 
                                 <md-tooltip>Сохранить</md-tooltip>
                                 <md-icon class="material-icons">check</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button " flex aria-label="Cancel"
+                            <md-button class="md-icon-button " style="width: 50%;" aria-label="Cancel"
                                        ng-click="board_settings_columns_ctrl.changeColumnCancel()">
 
                                 <md-tooltip>Отменить</md-tooltip>

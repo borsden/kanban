@@ -1,6 +1,6 @@
-<!--Название колонки. При нажатии досутпно изменение названия-->
+<!--Название колонки. При нажатии доступно изменение названия-->
 <md-button ng-click="column_header_ctrl.changeColumnTitle()"
-           ng-hide="column_header_ctrl.changed" flex aria-label="Change column title">
+           ng-hide="column_header_ctrl.changed" style="width: 100%" aria-label="Change column title">
 
     <span ng-bind="column_header_ctrl.column.title" class="board-column-title"></span>
 </md-button>
@@ -23,7 +23,7 @@
 
         <div flex layout="row">
             <!--Подтверждение изменения-->
-            <md-button class="md-icon-button md-primary" flex aria-label="Confirm"
+            <md-button class="md-icon-button md-primary" style="width: 50%;" aria-label="Confirm"
                        type="submit"
                        ng-disabled="changing_column_title_form.$invalid">
 
@@ -31,7 +31,7 @@
                 <md-icon class="material-icons">check</md-icon>
             </md-button>
             <!--Отмена изменения-->
-            <md-button class="md-icon-button " flex aria-label="Cancel"
+            <md-button class="md-icon-button " style="width: 50%;" aria-label="Cancel"
                        ng-click="column_header_ctrl.changeColumnCancel()">
 
                 <md-tooltip>Отменить</md-tooltip>

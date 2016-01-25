@@ -30,11 +30,11 @@
                             <span style="text-align: center;">Завершить задачу?</span>
 
                             <div layout="row">
-                                <md-button class="md-raised md-primary" flex="50"
+                                <md-button class="md-raised md-primary" style="width: 50%;"
                                            ng-click="card_settings_dialog_ctrl.archiveCard()">
                                     Завершить
                                 </md-button>
-                                <md-button flex>Отменить</md-button>
+                                <md-button style="width: 50%;">Отменить</md-button>
                             </div>
                         </md-menu-content>
                     </md-menu>
@@ -51,12 +51,12 @@
                             <span style="text-align: center;">Подтвердите удаление</span>
 
                             <div layout="row">
-                                <md-button class="md-raised" flex="50"
+                                <md-button class="md-raised" style="width: 50%;"
                                            style="background-color: #7F1612; color: #fff;"
                                            ng-click="card_settings_dialog_ctrl.deleteCard()">
                                     Удалить
                                 </md-button>
-                                <md-button flex>Отменить</md-button>
+                                <md-button style="width: 50%;">Отменить</md-button>
                             </div>
                         </md-menu-content>
                     </md-menu>
@@ -94,7 +94,7 @@
                 <div flex layout="column">
                     <!--Кнопка добавления дедлайна в случае его отсутствия-->
                     <md-button ng-click="card_settings_dialog_ctrl.addLastDate()"
-                               ng-if="card_settings_dialog_ctrl.card.last_date==null" flex>
+                               ng-if="card_settings_dialog_ctrl.card.last_date==null" style="width: 100%;">
                         Добавить дедлайн
                     </md-button>
                     <!--Сам дедлайн-->
@@ -115,7 +115,8 @@
         <!--Сохранение изменений в случае их наличия-->
         <md-dialog-actions layout="row" ng-if="!card_settings_dialog_ctrl.compareCards()"
                            class="md-toolbar card-settings-dialog__footer">
-            <md-button class="md-primary md-raised" flex ng-click="card_settings_dialog_ctrl.saveCard()">Сохранить
+            <md-button class="md-primary md-raised" style="width: 100%;"
+                       ng-click="card_settings_dialog_ctrl.saveCard()">Сохранить
                 изменения
             </md-button>
         </md-dialog-actions>
