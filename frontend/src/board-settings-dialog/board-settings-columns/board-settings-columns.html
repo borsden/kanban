@@ -31,14 +31,15 @@
                         <div flex layout="row">
 
 
-                            <md-button class="md-icon-button " aria-label="Cancel" style="height: inherit; width: 50%;"
+                            <md-button class="md-icon-button md-primary" aria-label="Cancel"
+                                       style="height: inherit; width: 50%;"
                                        ng-click="board_settings_columns_ctrl.changeColumn(column)">
 
                                 <md-tooltip>Изменить</md-tooltip>
-                                <md-icon class="material-icons" style="color: #808080;">edit</md-icon>
+                                <md-icon class="material-icons">edit</md-icon>
                             </md-button>
                             <md-menu md-position-mode="target-right target">
-                                <md-button class="md-icon-button " aria-label="Cancel"
+                                <md-button class="md-icon-button md-warn" aria-label="Cancel"
                                            ng-click="$mdOpenMenu()">
 
                                     <md-tooltip>Удалить</md-tooltip>

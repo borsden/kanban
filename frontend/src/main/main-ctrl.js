@@ -3,6 +3,19 @@ angular.module('Kanban')
         '$mdDialog', '$mdMedia', 'LogoutUser', '$window', MainCtrl]);
 function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
     var vm = this;
+
+    //Цвет задачи
+    vm.getColor = function (priority) {
+        if (priority == 1) {
+            return 'primary'
+        }
+        else if (priority == 2) {
+            return 'accent'
+        }
+        else if (priority == 3) {
+            return 'warn'
+        }
+    }
     // Получаем авторизованного пользователя
     CurrentUser.get({}, {}).$promise.then(function (data) {
 
@@ -29,6 +42,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
 
     // Ловим изменения в списке коллег или досок.
     $dragon.onChannelMessage(function (channels, message) {
+        console.log(message);
         if (indexOf.call(channels, 'board_channel') > -1) {
             //console.log(message);
             $scope.$apply(function () {

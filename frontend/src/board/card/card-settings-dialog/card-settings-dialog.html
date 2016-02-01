@@ -4,10 +4,10 @@
           ng-submit="card_settings_dialog_ctrl.changeCardConfirm()">
         <!--Цвет карточки в зависимотси от приоритета-->
         <md-dialog-content
-                ng-class="{
-        'card-priority-1' : card_settings_dialog_ctrl.card.priority==1,
-        'card-priority-2' : card_settings_dialog_ctrl.card.priority==2,
-         'card-priority-3' : card_settings_dialog_ctrl.card.priority==3}">
+
+                md-style-color="{{main_ctrl.getColor(card_settings_dialog_ctrl.card.priority)}}"
+                md-style-theme="taskTheme"
+                md-style-color-attrs="background-color">
             <div class="md-dialog-content">
                 <div class="card-settings-dialog__buttons">
                     <!--При нажатии на кнопку пользоватеь становится работником карточки-->

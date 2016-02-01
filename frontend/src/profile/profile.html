@@ -14,10 +14,14 @@
                 <md-button class="md-fab md-raised md-mini"
                            aria-label="Создать доску"
                            ng-click="main_ctrl.newChangeBoard($event)"
-                           style="position: absolute; right: 0; bottom: -24px;">
-
+                           style="position: absolute; right: 0; bottom: -24px"
+                           md-style-color="background"
+                           md-style-theme="default"
+                           md-style-color-attrs="background-color">
                     <md-tooltip>Создать доску</md-tooltip>
-                    <md-icon class="material-icons">add</md-icon>
+            <span md-style-color>
+                <md-icon class="material-icons" style="color:inherit">add</md-icon>
+            </span>
                 </md-button>
 
 
@@ -47,13 +51,11 @@
             Ваши карточки
             </span>
             <md-divider vertical></md-divider>
-
             <md-list>
                 <md-list-item class="md-2-line" ng-repeat="card in profile_ctrl.user_cards"
-                              ng-class="{
-                        'card-priority-1' : card.priority==1,
-                        'card-priority-2' : card.priority==2,
-                        'card-priority-3' : card.priority==3}">
+                              md-style-color="{{main_ctrl.getColor(card.priority)}}"
+                              md-style-theme="taskTheme"
+                              md-style-color-attrs="background-color">
                     <div class="md-list-item-text" layout="column" style="position:relative;">
                         <h3>{{card.title}}</h3>
 

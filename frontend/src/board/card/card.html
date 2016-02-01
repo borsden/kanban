@@ -1,18 +1,54 @@
-<!--Карточка. Цвет изменяется в зависимотси от приоритета-->
-<md-card class="md-whiteframe-z2" ng-class="{
-        'card-priority-1' : card_ctrl.card.priority==1,
-        'card-priority-2' : card_ctrl.card.priority==2,
-         'card-priority-3' : card_ctrl.card.priority==3}" style="position:relative">
-    <div>
+<!--Карточка. Цвет изменяется в зависимости от приоритета-->
+<md-card class="md-whiteframe-z5"
+         style="position:relative"
+         md-style-color="{{main_ctrl.getColor(card_ctrl.card.priority)}}"
+         md-style-theme="taskTheme"
+         md-style-color-attrs="background-color">
+    <div class="md-list-item-text card" layout="column" style="position:relative;">
+        <div>
+            <div layout="row" flex>
+                <!--Дата дедлайна-->
+                <div class="card__deadline-div" ng-if="card_ctrl.card.last_date">
+                    <md-icon class="material-icons">event</md-icon>
+                    <span> {{ card_ctrl.card.last_date|date:'d MMM' }}</span>
+                </div>
+                <span flex></span>
+                <!--Работник над картой-->
+                <div class="card__deadline-div" ng-if="card_ctrl.card.worker">
+                    <md-icon class="material-icons">assignment_ind</md-icon>
+                    <span> {{ card_ctrl.get_worker(card_ctrl.card.worker).short_name }}</span>
+                </div>
 
+            </div>
+        </div>
+        <div ng-click="card_ctrl.showSettings()" layout="row" layout-align="center center" style="min-height: inherit;">
+            <!--Название карточки-->
+            <div layout="row" layout-align="center center">
+                <h4 class="card__title" ng-bind="card_ctrl.card.title"></h4>
+            </div>
+            <!--Тэги-->
+            <div>
+                <md-chips ng-model="card_ctrl.card.tags" readonly="true" style="cursor:pointer"></md-chips>
+            </div>
+        </div>
+
+    </div>
+</md-card>
+<!--
+<md-card class="md-whiteframe-z5"
+         style="position:relative"
+         md-style-color="{{main_ctrl.getColor(card_ctrl.card.priority)}}"
+         md-style-theme="taskTheme"
+         md-style-color-attrs="background-color">
+    <div>
         <div layout="row" flex>
-            <!--Дата дедлайна-->
+            &lt;!&ndash;Дата дедлайна&ndash;&gt;
             <div class="card__deadline-div" ng-if="card_ctrl.card.last_date">
                 <md-icon class="material-icons">event</md-icon>
                 <span> {{ card_ctrl.card.last_date|date:'d MMM' }}</span>
             </div>
             <span flex></span>
-            <!--Работник над картой-->
+            &lt;!&ndash;Работник над картой&ndash;&gt;
             <div class="card__deadline-div" ng-if="card_ctrl.card.worker">
                 <md-icon class="material-icons">assignment_ind</md-icon>
                 <span> {{ card_ctrl.get_worker(card_ctrl.card.worker).short_name }}</span>
@@ -20,14 +56,15 @@
 
         </div>
     </div>
-    <div class="card" ng-click="card_ctrl.showSettings()">
-        <!--Название карточки-->
+    <div class="card" ng-click="card_ctrl.showSettings()" md-theme="taskTextTheme">
+        &lt;!&ndash;Название карточки&ndash;&gt;
         <div layout="row" layout-align="center top">
-            <h6 class="md-subhead card__title" ng-bind="card_ctrl.card.title"></h6>
+            <h3 class="card__title" ng-bind="card_ctrl.card.title"></h3>
         </div>
-        <!--Тэги-->
+        &lt;!&ndash;Тэги&ndash;&gt;
         <div>
             <md-chips ng-model="card_ctrl.card.tags" readonly="true" style="cursor:pointer"></md-chips>
         </div>
     </div>
-</md-card>
+
+</md-card>-->

@@ -4,10 +4,16 @@
 <!--Добавление карточки-->
 <div layout="row" class="board-column__buttons-container">
     <div class="board-column__buttons">
-        <md-button aria-label="Add Card Button" class="md-fab md-primary md-hue-2 md-mini"
-                   ng-click="column_ctrl.addCard($event)">
+        <md-button aria-label="Add Card Button" class="md-fab md-raised md-mini"
+                   ng-click="column_ctrl.addCard($event)"
+                   md-style-color="background"
+                   md-style-theme="default"
+                   md-style-color-attrs="background-color"
+                >
             <md-tooltip>Добавить карту</md-tooltip>
-            <md-icon class="material-icons md-primary">add</md-icon>
+            <span md-style-color>
+                <md-icon class="material-icons" style="color:inherit">add</md-icon>
+            </span>
         </md-button>
     </div>
 
@@ -16,7 +22,10 @@
 <div layout="column" flex class="card-container">
     <!--Шаблон новой карточки-->
     <div layout="column" style="min-height: 100px" ng-show="column_ctrl.add">
-        <md-card class="md-whiteframe-z2" ng-show="column_ctrl.add">
+        <md-card class="md-whiteframe-z2" ng-show="column_ctrl.add"
+                 md-style-color="primary"
+                 md-style-theme="taskTheme"
+                 md-style-color-attrs="background-color">
             <div class="card">
                 <div layout="row" layout-align="center" new-card></div>
             </div>

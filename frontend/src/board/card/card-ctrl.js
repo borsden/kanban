@@ -10,6 +10,8 @@ function CardCtrl($scope, $mdDialog, $mdMedia, Cards, ArchiveCard) {
      return $scope.board_ctrl.current_board.members[i]
      }}};
      */
+
+
     //Модульное окно изменения карточки
     vm.showSettings = function (ev) {
         $mdDialog.show({
