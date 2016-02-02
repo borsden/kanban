@@ -15,7 +15,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
         else if (priority == 3) {
             return 'warn'
         }
-    }
+    };
     // Получаем авторизованного пользователя
     CurrentUser.get({}, {}).$promise.then(function (data) {
 
@@ -28,30 +28,18 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             $dragon.subscribe('board', 'board_channel', {}).then(function (response) {
                 vm.dataMapper = new DataMapper(response.data);
             });
-            $dragon.getList('user', {}).then(function (response) {
-                vm.colleagues = response.data;
-            });
-            $dragon.subscribe('user', 'colleagues_channel', {}).then(function (response) {
-                vm.dataMapper = new DataMapper(response.data);
-            });
         });
 
     }, function (data) {
         // Если пользователь не авторизован, будет выполнятся код в данной функции.
     });
 
-    // Ловим изменения в списке коллег или досок.
+    // Ловим изменения в списке  досок.
     $dragon.onChannelMessage(function (channels, message) {
-        console.log(message);
         if (indexOf.call(channels, 'board_channel') > -1) {
             //console.log(message);
             $scope.$apply(function () {
                 vm.dataMapper.mapData(vm.boards, message);
-            });
-        }
-        if (indexOf.call(channels, 'colleagues_channel') > -1) {
-            $scope.$apply(function () {
-                vm.dataMapper.mapData(vm.colleagues, message);
             });
         }
     });

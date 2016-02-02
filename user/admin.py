@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User
+from .models import User, InvitedEmail
 
 
 class UserCreationForm(forms.ModelForm):
@@ -42,7 +42,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin', 'colleagues')
+        fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin')
 
     def clean_password(self):
         return self.initial["password"]
@@ -61,7 +61,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password', 'status')}),
         (u'Административная часть', {'fields': ('is_admin',)}),
-        (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'colleagues', 'avatar')}),
+        (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'avatar')}),
     )
 
     add_fieldsets = (
@@ -76,5 +76,6 @@ class MyUserAdmin(UserAdmin):
 
 # Регистрируем созданные формы
 admin.site.register(User, MyUserAdmin)
+admin.site.register(InvitedEmail)
 # Так как мы не используем встроенные Django разрешения, то наоборот, отсоединим их
 admin.site.unregister(Group)

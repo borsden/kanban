@@ -47,7 +47,7 @@ function BoardCtrl($scope, $dragon, $stateParams) {
             });
 
         });
-        $dragon.subscribe('board', 'current_board_channel', {id: 1}).then(function (response) {
+        $dragon.subscribe('board', 'current_board_channel', {id: board_id}).then(function (response) {
             vm.dataMapper = new DataMapper(response.data);
         });
     });

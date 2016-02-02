@@ -48,8 +48,6 @@ class User(AbstractBaseUser):
     last_name = models.CharField(max_length=30, verbose_name=u"Фамилия", blank=True)
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
-    # Коллеги
-    colleagues = models.ManyToManyField("self", blank=True, verbose_name=u"Коллеги")
 
     # Аватар
     avatar = models.ImageField(verbose_name=u'Аватар', blank=True, upload_to='avatars')
@@ -134,6 +132,11 @@ class User(AbstractBaseUser):
 
 
 class InvitedEmail(models.Model):
+    # Отображение в админке
+    class Meta:
+        verbose_name = u'приглашенные'
+        verbose_name_plural = u'Приглашенные'
+
     email = models.EmailField(verbose_name=u'Email', max_length=255, )
     user = models.ForeignKey(to='user.User', related_name='invited_user', verbose_name=u'Приглашенные')
     board = models.ForeignKey(to='board.Board', related_name='invited_user', verbose_name=u'Доска')

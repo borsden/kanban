@@ -1,17 +1,13 @@
 # coding=utf-8
-from base64 import b64decode
-import base64
 import json
 
 from django.contrib.auth import authenticate, login, logout
-from django.core.files.base import ContentFile
-
 from rest_framework import status, permissions
-from rest_framework.generics import ListAPIView, UpdateAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import UpdateAPIView, RetrieveUpdateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from kanban.helpers import Base64Image
 
+from kanban.helpers import Base64Image
 from user import serializers
 from user.models import User
 
@@ -88,3 +84,15 @@ class ChangeAvatar(APIView):
         except Exception as e:
             print e
             return Response({}, status=status.HTTP_409_CONFLICT)
+
+
+class GetColleagues(ListAPIView):
+    def get_queryset(self):
+        return User.objects.filter(boards__in=
+                                   self.request.user.boards.all()).exclude(id=self.request.user.id).distinct()
+
+    def get_serializer_class(self):
+        return serializers.UserSerializer
+
+        # def get(self, request, *args, **kwargs):
+        # return super(GetMembers, self).get(request, *args, **kwargs)

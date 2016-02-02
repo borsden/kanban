@@ -1,9 +1,9 @@
 angular.module('Kanban')
-    .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard', 'ChangeBoardColumns', 'board', 'columns', BoardSettingsDialogCtrl]);
-function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, ChangeBoardColumns, board, columns) {
+    .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard',
+        'ChangeBoardColumns', 'Colleagues', 'board', 'columns', BoardSettingsDialogCtrl]);
+function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
+                                 ChangeBoardColumns, Colleagues, board, columns) {
     var vm = this;
-
-
     vm.columns = [];
     vm.first_columns = [];
 
@@ -28,9 +28,11 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, ChangeB
             }
         }
     }
-    //Сравниваем доски и категории, и если они не равны, то отображаем кнопку изменения
+    //Сравниваем доски, категории и пользователей, и если они не равны, то отображаем кнопку изменения
     vm.compareBoards = function () {
-        return (angular.equals(vm.board, board) && angular.equals(vm.columns, vm.first_columns))
+        return (angular.equals(vm.board, board) &&
+        angular.equals(vm.columns, vm.first_columns) &&
+        angular.equals(vm.members, vm.first_members))
     };
 
     vm.filterSelected = true;
@@ -41,22 +43,25 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard, ChangeB
         vm.members.push(contact)
     };
 
-    // Просматриваем список коллег, для каждого коллеги добавим изображение (пока рандомное).
+
     // В случае изменения существующей доски, пробегаемся по списку и добавляем пользователей, которые уже работают над ней.
-    $scope.$watch('main_ctrl.colleagues', function (colleagues) {
+
+    Colleagues.get({board_id: vm.board.id}, {}).$promise.then(function (colleagues) {
         vm.colleagues = colleagues;
-        if (vm.changing) {
-            for (var i = 0; i < vm.board.members.length; i++) {
-                for (var j = 0; j < vm.colleagues.length; j++) {
-                    if (vm.board.members[i] == vm.colleagues[j].id) {
-                        if (vm.members.indexOf(vm.colleagues[j]) == -1) {
-                            vm.members.push(vm.colleagues[j]);
-                        }
+
+        for (var j = 0; j < colleagues.length; j++) {
+
+            if (vm.changing) {
+                for (var i = 0; i < vm.board.members.length; i++) {
+                    if (vm.board.members[i] == colleagues[j].id) {
+                        vm.members.push(colleagues[j]);
                     }
                 }
             }
         }
-    }, true);
+        vm.first_members = angular.copy(vm.members);
+    });
+
 
     //После сохранения изменения в доске, если они были, сохраняются изменения в колонках
     vm.saveBoard = function () {
