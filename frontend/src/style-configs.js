@@ -3,7 +3,7 @@ angular.module('Kanban')
     .config(['$mdThemingProvider', function ($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('cyan')
-            .accentPalette('cyan')
+            .accentPalette('light-blue')
             .warnPalette('red')
             .backgroundPalette('cyan', {
                 'default': '50'

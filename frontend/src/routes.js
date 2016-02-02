@@ -26,6 +26,26 @@ angular.module('Kanban')
                             controllerAs: 'profile_ctrl'
                         }
                     }
+                })
+                .state('settings', {
+                    url: '/settings',
+                    views: {
+                        '': {
+                            templateUrl: 'settings.html',
+                            controller: 'SettingsCtrl',
+                            controllerAs: 'settings_ctrl'
+                        }
+                    }
+                })
+                .state('colleagues', {
+                    url: '/colleagues',
+                    views: {
+                        '': {
+                            templateUrl: 'colleagues.html',
+                            controller: 'ColleaguesCtrl',
+                            controllerAs: 'colleagues_ctrl'
+                        }
+                    }
                 });
             //if (window.history && window.history.pushState) {
             //    $locationProvider.html5Mode({

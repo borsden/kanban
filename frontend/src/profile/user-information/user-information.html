@@ -2,15 +2,13 @@
     <img ng-src="{{main_ctrl.user.avatar}}" alt="avatar" style="width: 100%"/>
     <md-button class="md-fab md-accent"
                aria-label="Boards"
-               ng-click=""
-               style="position: absolute; right: 0; bottom: -30px;">
+               style="position: absolute; right: 0; bottom: -30px;" id="buttonAvatarInput"
+               ng-click="clicked()">
 
         <md-tooltip>Изменить аватар</md-tooltip>
-        <label for="fileInput">
             <md-icon class="material-icons">edit</md-icon>
-        </label>
     </md-button>
-    <input type="file" id="fileInput" style="display:none;"/>
+    <input type="file" id="avatarInput" style="display:none;"/>
 
 </div>
 <form name="profile_form" novalidate>

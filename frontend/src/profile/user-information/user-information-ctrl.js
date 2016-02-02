@@ -33,7 +33,7 @@ function UserInformationCtrl($mdDialog, $scope, UpdateUser) {
         };
         reader.readAsDataURL(file);
     };
-    angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+    angular.element(document.querySelector('#avatarInput')).on('change', handleFileSelect);
 
     vm.profile_changed = function () {
         return (previous_user.first_name != current_user.first_name)

@@ -1,0 +1,14 @@
+<span class="md-headline column_header" layout="row" layout-align="center center">Подтвержденные</span>
+<md-list>
+    <md-list-item class="md-3-line" ng-repeat="collegue in main_ctrl.colleagues">
+        <img ng-src="{{ colleague.avatar }}" class="md-avatar colleague_avatar"
+             alt="{{ colleague.initials }}"/>
+
+        <div class="md-list-item-text" layout="column">
+            <h3>{{ collegue.email }}</h3>
+            <!--<h4>{{ collegue.what }}</h4>-->
+
+            <!--<p>{{ item.notes }}</p>-->
+        </div>
+    </md-list-item>
+</md-list>

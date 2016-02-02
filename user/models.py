@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
     # Специальная библиотека django-imagekit, которая сохраняет полученную картинку jpeg'ом
     # с определенным размером, качеством и рандомным именем.
     # avatar_thumbnail = ImageSpecField(source='avatar',
-    #                                   processors=[ResizeToFill(300, 300)],
+    # processors=[ResizeToFill(300, 300)],
     #                                   format='JPEG',
     #                                   options={'quality': 60})
 
@@ -89,6 +89,7 @@ class User(AbstractBaseUser):
             initials_ += (self.first_name.capitalize()[0] + self.last_name.capitalize()[0])
         else:
             initials_ += (self.email.capitalize()[0])
+            print initials_
         return initials_
 
     # В случае, если переменная True, пользователь может является администратором
@@ -130,3 +131,9 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         return self.name_and_email
+
+
+class InvitedEmail(models.Model):
+    email = models.EmailField(verbose_name=u'Email', max_length=255, )
+    user = models.ForeignKey(to='user.User', related_name='invited_user', verbose_name=u'Приглашенные')
+    board = models.ForeignKey(to='board.Board', related_name='invited_user', verbose_name=u'Доска')
