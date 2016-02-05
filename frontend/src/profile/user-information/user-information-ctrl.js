@@ -33,13 +33,16 @@ function UserInformationCtrl($mdDialog, $scope, UpdateUser) {
         };
         reader.readAsDataURL(file);
     };
+    // Проверяем изменения input'а с изображением
     angular.element(document.querySelector('#avatarInput')).on('change', handleFileSelect);
 
-    vm.profile_changed = function () {
+    //функция проверки изменения профиля
+    vm.profileChanged = function () {
         return (previous_user.first_name != current_user.first_name)
             || (previous_user.last_name != current_user.last_name)
             || (previous_user.patronymic != current_user.patronymic)
     };
+    // Сохранение изменений в профиле
     vm.saveProfileChanged = function () {
         UpdateUser.update(current_user, function (response) {
             $scope.main_ctrl.user = response;

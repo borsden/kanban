@@ -2,11 +2,11 @@
 from django.db import models
 
 
-class InvitedMember(models.Model):
+class Invitation(models.Model):
     # Отображение в админке
     class Meta:
-        verbose_name = u'приглашенные'
-        verbose_name_plural = u'Приглашенные'
+        verbose_name = u'приглашения'
+        verbose_name_plural = u'Приглашение'
 
     email = models.EmailField(verbose_name=u'Email', max_length=255, )
     user = models.ForeignKey(to='user.User', related_name='invited_members', verbose_name=u'Пригласивший')

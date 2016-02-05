@@ -1,7 +1,7 @@
 <div style="position: relative">
     <!-- {{new_invited_member}} -->
     <span class="md-headline column_header" layout="row" layout-align="center center">Ваши заявки</span>
-
+    <!--Кнопка добавления приглашения с выпадающим меню-->
     <md-menu md-position-mode="target-right target" style="position: absolute; right: 0; bottom: -32px">
         <md-button class="md-fab md-raised md-mini"
                    aria-label="Добавить пользователя"
@@ -34,18 +34,13 @@
                 </span>
             </p>
         </div>
+        <!--Кнопка удаления нашего приглашения-->
         <md-icon class="material-icons"
                  md-style-color="warn"
                  md-style-theme="default"
                  md-style-color-attrs="color" style="cursor:pointer;"
                  ng-click="colleagues_ctrl.deleteInvitedMember(invited_member.id)">delete
         </md-icon>
-        <!--        <md-button class="md-icon-button md-warn" aria-label="Cancel"
-                           ng-click="$mdOpenMenu()">
-
-                    <md-tooltip>Удалить</md-tooltip>
-                    <md-icon class="material-icons" style="color: #7f1612;">delete</md-icon>
-                </md-button>-->
     </md-list-item>
     <md-divider horizontal></md-divider>
 </md-list>

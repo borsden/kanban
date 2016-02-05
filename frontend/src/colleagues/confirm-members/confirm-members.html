@@ -9,7 +9,8 @@
             <h3>{{ colleague.email }}</h3>
             <h4>{{ colleague.fullname }}</h4>
 
-            <p><span ng-repeat="board in colleague.boards" class="board">{{ board.title }}
+            <p><span ng-repeat="board in colleague.boards" class="board" ui-sref="board({id:{{ board.id }}})">{{ board.title }}
+                <!--После каждой доски, кроме последней, добавляем запятую-->
                 <span ng-if="!$last">,</span>
             </span>
             </p>

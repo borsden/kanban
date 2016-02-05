@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.contrib import admin
-from colleague.models import InvitedMember
+from colleague.models import Invitation
 
 
 class InvitedMemberAdmin(admin.ModelAdmin):
@@ -8,4 +8,4 @@ class InvitedMemberAdmin(admin.ModelAdmin):
     list_display = ('email', 'user', 'board')
 
 
-admin.site.register(InvitedMember, InvitedMemberAdmin)
+admin.site.register(Invitation, InvitedMemberAdmin)

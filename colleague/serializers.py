@@ -3,14 +3,14 @@ from rest_framework import serializers
 
 from board.models import Board
 
-from models import InvitedMember
+from models import Invitation
 from user.models import User
 
 
 # Сериализатор списка приглашенных пользователей
 class InvitedMemberSerializer(serializers.ModelSerializer):
     class Meta:
-        model = InvitedMember
+        model = Invitation
         fields = ('id', 'email', 'user', 'board', 'board_title')
         extra_kwargs = {
             'board_title': {'read_only': True}
@@ -33,7 +33,8 @@ class ColleagueSerializer(serializers.ModelSerializer):
     def get_common_boards(self, obj):
         # Получаем текущего пользователя
         user = self.context['request'].user
-        # Выбираем только те доски, в которых членами являются сразу оба человека: коллега и текущий пользователь
+        # Выбираем только те доски, в которых членами являются сразу оба человека: коллега и текущий пользователь.
+        # Делаем список уникальным
         boards = Board.objects.filter(members=user).filter(members=obj).distinct()
         serializer = BoardColleagueSerializer(boards, many=True, read_only=True)
         return serializer.data
@@ -47,6 +48,7 @@ class ColleagueSerializer(serializers.ModelSerializer):
         }
 
 
+# Сериализатор пользователей для списка пригласивших
 class UserFollowerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -57,11 +59,12 @@ class UserFollowerSerializer(serializers.ModelSerializer):
         }
 
 
+# Сериализатор пригласивших
 class FollowerSerializer(serializers.ModelSerializer):
     user = UserFollowerSerializer()
 
     class Meta:
-        model = InvitedMember
+        model = Invitation
         fields = ('id', 'email', 'user', 'board', 'board_title')
         extra_kwargs = {
             'board_title': {'read_only': True},
