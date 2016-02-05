@@ -4,15 +4,15 @@ angular.module('Kanban')
         function ($mdTheming, $mdColorPalette) {
             return {
                 restrict: 'A',
-                scope: {
-                    mdStyleColor: '@',
-                    mdStyleColorAttrs: '@',
-                    mdStyleTheme: '@'
-                },
+                //scope: {
+                //    mdStyleColor: '@',
+                //    mdStyleColorAttrs: '@',
+                //    mdStyleTheme: '@'
+                //},
                 link: function (scope, element, attrs) {
                     var _theme;
-                    if (scope.mdStyleTheme != undefined && $mdTheming.THEMES[scope.mdStyleTheme]) {
-                        _theme = $mdTheming.THEMES[scope.mdStyleTheme]
+                    if (attrs.mdStyleTheme != undefined && $mdTheming.THEMES[attrs.mdStyleTheme]) {
+                        _theme = $mdTheming.THEMES[attrs.mdStyleTheme]
                     }
                     else {
                         _theme = $mdTheming.THEMES['default']
@@ -27,7 +27,7 @@ angular.module('Kanban')
                         if (color != undefined && color.length > 2) {
                             var split = color.split('.');
                             hueR = split[1] || 'default';    // 'default'
-                            colorR = split[0] || 'primary';  // 'warn'
+                            colorR = split[0] || 'primary';
                         }
                         // Absolute color: 'orange'
                         var colorA = themeColors[colorR] ?
@@ -43,9 +43,9 @@ angular.module('Kanban')
                             $mdColorPalette[colorA][hueA].value :
                             $mdColorPalette[colorA]['500'].value;
 
-                        if (scope.mdStyleColorAttrs != undefined) {
+                        if (attrs.mdStyleColorAttrs != undefined) {
 
-                            element.css(scope.mdStyleColorAttrs, 'rgb(' + colorValue.join(',') + ')');
+                            element.css(attrs.mdStyleColorAttrs, 'rgb(' + colorValue.join(',') + ')');
                         }
                         else {
                             element.css('color', 'rgb(' + colorValue.join(',') + ')');

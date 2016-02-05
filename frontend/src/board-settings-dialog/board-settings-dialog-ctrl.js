@@ -1,8 +1,8 @@
 angular.module('Kanban')
     .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard',
-        'ChangeBoardColumns', 'Colleagues', 'board', 'columns', BoardSettingsDialogCtrl]);
+        'ChangeBoardColumns', 'Colleagues', 'InvitedMembers', 'board', 'columns', BoardSettingsDialogCtrl]);
 function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
-                                 ChangeBoardColumns, Colleagues, board, columns) {
+                                 ChangeBoardColumns, Colleagues, InvitedMembers, board, columns) {
     var vm = this;
     vm.columns = [];
     vm.first_columns = [];
@@ -46,7 +46,7 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
 
     // В случае изменения существующей доски, пробегаемся по списку и добавляем пользователей, которые уже работают над ней.
 
-    Colleagues.get({board_id: vm.board.id}, {}).$promise.then(function (colleagues) {
+    Colleagues.get({}, {}).$promise.then(function (colleagues) {
         vm.colleagues = colleagues;
 
         for (var j = 0; j < colleagues.length; j++) {
@@ -60,6 +60,9 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
             }
         }
         vm.first_members = angular.copy(vm.members);
+    });
+    InvitedMembers.get({}, {}).$promise.then(function (invited_members) {
+        console.log(invited_members)
     });
 
 

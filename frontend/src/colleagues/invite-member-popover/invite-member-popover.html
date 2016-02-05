@@ -1,0 +1,24 @@
+<form name="inviteMemberForm">
+    <span flex layout="row" layout-align="center center">Приглашение пользователя</span>
+
+    <md-input-container md-no-float class="md-block">
+        <label>Email</label>
+        <input name="description" type="email" ng-model="invited_member.email" required/>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+        <label>Доска</label>
+        <md-select name="board" ng-model="invited_member.board"
+                   md-container-class="md-select-menu-container__invite-email__boards">
+            <md-option ng-repeat="board in main_ctrl.boards" value="{{ board.id}}">{{board.title}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+</form>
+
+<div layout="row">
+    <md-button class="md-raised md-primary" style="width: 100%;"
+               ng-click="inviteMember()">
+        Пригласить
+    </md-button>
+</div>

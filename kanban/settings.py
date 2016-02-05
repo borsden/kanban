@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'user',
     'board',
     'card',
-    'column'
+    'column',
+    'colleague'
 ]
 
 MIDDLEWARE_CLASSES = [

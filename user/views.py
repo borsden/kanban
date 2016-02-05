@@ -3,7 +3,7 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status, permissions
-from rest_framework.generics import UpdateAPIView, RetrieveUpdateAPIView, ListAPIView
+from rest_framework.generics import UpdateAPIView, RetrieveUpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -85,14 +85,3 @@ class ChangeAvatar(APIView):
             print e
             return Response({}, status=status.HTTP_409_CONFLICT)
 
-
-class GetColleagues(ListAPIView):
-    def get_queryset(self):
-        return User.objects.filter(boards__in=
-                                   self.request.user.boards.all()).exclude(id=self.request.user.id).distinct()
-
-    def get_serializer_class(self):
-        return serializers.UserSerializer
-
-        # def get(self, request, *args, **kwargs):
-        # return super(GetMembers, self).get(request, *args, **kwargs)

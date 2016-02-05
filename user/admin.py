@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User, InvitedEmail
+from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
@@ -76,6 +76,5 @@ class MyUserAdmin(UserAdmin):
 
 # Регистрируем созданные формы
 admin.site.register(User, MyUserAdmin)
-admin.site.register(InvitedEmail)
 # Так как мы не используем встроенные Django разрешения, то наоборот, отсоединим их
 admin.site.unregister(Group)

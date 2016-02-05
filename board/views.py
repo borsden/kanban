@@ -20,7 +20,6 @@ class CreateBoard(generics.CreateAPIView):
         except Exception as e:
             return Response({}, status=status.HTTP_409_CONFLICT)
 
-
     def get_serializer_class(self):
         return serializers.BoardSerializer
 

@@ -10,5 +10,4 @@ urlpatterns = patterns('',
                        url(r'^login/$', views.LoginUser.as_view()),
                        url(r'^logout/$', views.LogoutUser.as_view()),
                        url(r'^change_avatar/$', views.ChangeAvatar.as_view()),
-                       url(r'^colleagues/(?P<board_id>[0-9]+)/$', views.GetColleagues.as_view()),
                        )

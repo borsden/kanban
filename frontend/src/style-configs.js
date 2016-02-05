@@ -2,11 +2,13 @@
 angular.module('Kanban')
     .config(['$mdThemingProvider', function ($mdThemingProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('cyan')
+            .primaryPalette('blue')
             .accentPalette('light-blue')
-            .warnPalette('red')
-            .backgroundPalette('cyan', {
-                'default': '50'
+            .warnPalette('red', {
+                'default': '900'
+            })
+            .backgroundPalette('grey', {
+                'default': '200'
             });
         $mdThemingProvider.theme('taskTheme')
             .primaryPalette('grey', {

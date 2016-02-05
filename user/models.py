@@ -3,8 +3,6 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFill
 
 
 class UserManager(BaseUserManager):
@@ -130,13 +128,3 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.name_and_email
 
-
-class InvitedEmail(models.Model):
-    # Отображение в админке
-    class Meta:
-        verbose_name = u'приглашенные'
-        verbose_name_plural = u'Приглашенные'
-
-    email = models.EmailField(verbose_name=u'Email', max_length=255, )
-    user = models.ForeignKey(to='user.User', related_name='invited_user', verbose_name=u'Приглашенные')
-    board = models.ForeignKey(to='board.Board', related_name='invited_user', verbose_name=u'Доска')

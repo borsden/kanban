@@ -1,0 +1,28 @@
+<span class="md-headline column_header" layout="row" layout-align="center center">Заявки вам</span>
+<md-divider vertical></md-divider>
+<md-list>
+    <md-list-item class="md-2-line" ng-repeat="follower in colleagues_ctrl.followers">
+        <img ng-src="{{ follower.user.avatar }}" class="md-avatar colleague_avatar"
+             alt="{{ follower.user.initials }}"/>
+
+        <div class="md-list-item-text">
+            <h3>{{ follower.user.email }}</h3>
+            <h4>{{ follower.fullname }}</h4>
+
+            <p><span>{{ follower.board_title }}</span></p>
+        </div>
+
+        <md-icon class="material-icons"
+                 md-style-color="primary"
+                 md-style-theme="default"
+                 md-style-color-attrs="color" style="cursor:pointer;"
+                 ng-click="colleagues_ctrl.submitFollower(follower)">done
+        </md-icon>
+        <md-icon class="material-icons"
+                 md-style-color="warn"
+                 md-style-theme="default"
+                 md-style-color-attrs="color" style="cursor:pointer;"
+                 ng-click="colleagues_ctrl.deleteFollower(follower)">clear
+        </md-icon>
+    </md-list-item>
+</md-list>

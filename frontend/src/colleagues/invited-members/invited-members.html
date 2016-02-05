@@ -1,0 +1,51 @@
+<div style="position: relative">
+    <!-- {{new_invited_member}} -->
+    <span class="md-headline column_header" layout="row" layout-align="center center">Ваши заявки</span>
+
+    <md-menu md-position-mode="target-right target" style="position: absolute; right: 0; bottom: -32px">
+        <md-button class="md-fab md-raised md-mini"
+                   aria-label="Добавить пользователя"
+                   ng-click="colleagues_ctrl.openInviteEmailPopover($mdOpenMenu, $event)"
+
+                   md-style-color="background"
+                   md-style-theme="default"
+                   md-style-color-attrs="background-color">
+            <md-tooltip>Создать доску</md-tooltip>
+            <span md-style-color>
+                <md-icon class="material-icons" style="color:inherit">add</md-icon>
+            </span>
+        </md-button>
+        <!--Окно приглашения пользователя-->
+        <md-menu-content width="4" invite-member-popover>
+
+        </md-menu-content>
+    </md-menu>
+
+</div>
+<md-divider vertical></md-divider>
+<md-list>
+    <md-list-item class="md-2-line" class="secondary-button-padding"
+                  ng-repeat="invited_member in colleagues_ctrl.invited_members">
+        <div class="md-list-item-text" layout="column">
+            <h3>{{ invited_member.email }}</h3>
+
+            <p> <span ui-sref="board({id:{{ invited_member.board }}})" class="board">
+                {{invited_member.board_title}}
+                </span>
+            </p>
+        </div>
+        <md-icon class="material-icons"
+                 md-style-color="warn"
+                 md-style-theme="default"
+                 md-style-color-attrs="color" style="cursor:pointer;"
+                 ng-click="colleagues_ctrl.deleteInvitedMember(invited_member.id)">delete
+        </md-icon>
+        <!--        <md-button class="md-icon-button md-warn" aria-label="Cancel"
+                           ng-click="$mdOpenMenu()">
+
+                    <md-tooltip>Удалить</md-tooltip>
+                    <md-icon class="material-icons" style="color: #7f1612;">delete</md-icon>
+                </md-button>-->
+    </md-list-item>
+    <md-divider horizontal></md-divider>
+</md-list>

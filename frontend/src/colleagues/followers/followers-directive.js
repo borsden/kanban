@@ -1,10 +1,10 @@
 angular
     .module('Kanban')
-    .directive('followerMembers', [followerMembers]);
+    .directive('followers', [followers]);
 
-function followerMembers() {
+function followers() {
     var directive = {
-        templateUrl: 'follower-members.html',
+        templateUrl: 'followers.html',
         restrict: 'EA',
         link: function (scope, elem, attrs) {
 
