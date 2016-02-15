@@ -1,77 +1,85 @@
 angular.module('Kanban')
-    .controller('ColleaguesCtrl', ['$scope', 'Colleagues', 'InvitedMembers', 'DeleteInvitedMember',
-        'AllFollowers', 'Follower', 'DeleteFollower', ColleaguesCtrl]);
-function ColleaguesCtrl($scope, Colleagues, InvitedMembers, DeleteInvitedMember,
-                        AllFollowers, Follower, DeleteFollower) {
+    .controller('ColleaguesCtrl', ['$scope', '$dragon', 'DeleteInvitedMember',
+        'Follower', 'DeleteFollower', ColleaguesCtrl]);
+function ColleaguesCtrl($scope, $dragon, DeleteInvitedMember,
+                        Follower, DeleteFollower) {
     var vm = this;
     vm.invited_members = [];
-    // Пользователи, с которыми есть общие доски
-    Colleagues.get({}, {}).$promise.then(function (result) {
-        vm.colleagues = result;
+    vm.followers = [];
+
+
+    $dragon.onReady(function () {
+        // Пользователи, которые пригласили нас
+        $dragon.getList('follower', {}).then(function (response) {
+            vm.followers = response.data;
+
+        });
+        $dragon.subscribe('follower', 'follower_channel', {}).then(function (response) {
+            vm.dataMapper = new DataMapper(response.data);
+        });
+        // Приглашенные нами пользователи
+        $dragon.getList('invited_member', {}).then(function (response) {
+            vm.invited_members = response.data;
+        });
+        $dragon.subscribe('invited_member', 'invited_member_channel', {}).then(function (response) {
+            vm.dataMapper = new DataMapper(response.data);
+        });
     });
-    // Приглашенные нами пользователи
-    InvitedMembers.get({}, {}).$promise.then(function (result) {
-        vm.invited_members = result;
+
+
+    $dragon.onChannelMessage(function (channels, message) {
+        if (indexOf.call(channels, 'follower_channel') > -1) {
+            $scope.$apply(function () {
+                vm.dataMapper.mapData(vm.followers, message);
+            });
+        }
+        if (indexOf.call(channels, 'invited_member_channel') > -1) {
+            $scope.$apply(function () {
+                vm.dataMapper.mapData(vm.invited_members, message);
+            });
+        }
     });
-    // Пользователи, которые пригласили нас
-    AllFollowers.get({}, {}).$promise.then(function (result) {
-        vm.followers = result;
-    });
+
+    // Получение списка общих задач
+    vm.getBoards = function (colleague, boards) {
+        var colleague_id = colleague.id;
+        var boards_objects = [];
+        for (var i = 0; i < boards.length; i++) {
+            if (boards[i].members.indexOf(colleague_id) != -1) {
+                boards_objects.push(boards[i])
+            }
+        }
+        return boards_objects
+    };
 
     // Открытие выпадающего меню с добавлением пользователя
     vm.openInviteEmailPopover = function ($mdOpenMenu, ev) {
         $mdOpenMenu(ev);
     };
-    // Проверка приглашения нового пользователя. Если пользователь приглашен, то добавляем его в список
-    $scope.$watch(function () {
-        return $scope.new_invited_member
-    }, function (newValue) {
-        if (newValue != undefined) {
-            vm.invited_members.push(newValue);
-            $scope.new_invited_member = undefined;
-        }
-    });
+    // Todo: зафиксировать ошибки
     // Удаление приглашения пользователя
     vm.deleteInvitedMember = function (member_id) {
         DeleteInvitedMember.delete({id: member_id}, function (response) {
-            for (var i = 0; i < vm.invited_members.length; i++) {
-                if (vm.invited_members[i].id == member_id) {
-                    vm.invited_members.splice(i, 1);
-                    break;
-                }
-            }
         });
     };
+
     // Подтверждение приглашения в новую доску
     vm.submitFollower = function (follower) {
         Follower.update(follower, function (response) {
-            // Удаляем приглашения из списка приглашений
-            var index = vm.followers.indexOf(follower);
-            vm.followers.splice(index, 1);
-            // Переменная, которая служит для проверки наличия пользователя в списке коллег
-            var not_in_colleagues;
-            for (var j = 0; j < response.length; j++) {
-                not_in_colleagues = false;
-                for (var i = 0; i < vm.colleagues.length; i++) {
-                    // Если пользователь в списке коллег, обновляем общие доски
-                    if (vm.colleagues[i].id == response[j].id) {
-                        vm.colleagues[i].boards = response[j].boards;
-                        not_in_colleagues = true;
-                        break;
-                    }
-                }
-                // Если пользователя нет, то добавляем его
-                if (!not_in_colleagues) {
-                    vm.colleagues.push(response[j])
-                }
-            }
+
         });
     };
     // Удаление приглашения в новую доску
+
     vm.deleteFollower = function (follower) {
         DeleteFollower.delete(follower, function (response) {
-            var index = vm.followers.indexOf(follower);
-            vm.followers.splice(index, 1);
+        }, function (error) {
+            if (error.status == 405) {
+                console.log('Вы не можете удалять данное приглашение')
+            }
+            else {
+                console.log('Возникла непредвиденная ошибка')
+            }
         });
     }
 }

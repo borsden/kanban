@@ -17,8 +17,12 @@ function LoginAuthDialogCtrl($mdDialog, LoginUser, $scope, dialog_type, $window)
     };
     // Вход пользователя
     vm.loginUser = function () {
+        console.log(vm.login_user)
         LoginUser.post(vm.login_user, function (data) {
+            console.log(data);
             $window.location.reload();
+        }, function (error) {
+            console.log('error', error)
         })
     }
 

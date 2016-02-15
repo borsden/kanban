@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from board.models import Board
 
 from .models import User
 
@@ -39,10 +40,30 @@ class UserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     """Форма изменения пользователя. Пароль хранится в виде хеша."""
     password = ReadOnlyPasswordHashField()
+    boards = forms.ModelMultipleChoiceField(Board.objects.all(), required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(UserChangeForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            # if this is not a new object, we load related books
+            self.initial['boards'] = self.instance.boards.values_list('pk', flat=True)
+
+    def save(self, *args, **kwargs):
+        instance = super(UserChangeForm, self).save(*args, **kwargs)
+        if instance.pk:
+            for board in instance.boards.all():
+                if board not in self.cleaned_data['boards']:
+                    # we remove books which have been unselected
+                    instance.boards.remove(board)
+            for board in self.cleaned_data['boards']:
+                if board not in instance.boards.all():
+                    # we add newly selected books
+                    instance.boards.add(board)
+        return instance
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin')
+        fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin', 'boards')
 
     def clean_password(self):
         return self.initial["password"]
@@ -62,6 +83,7 @@ class MyUserAdmin(UserAdmin):
         (None, {'fields': ('email', 'password', 'status')}),
         (u'Административная часть', {'fields': ('is_admin',)}),
         (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'avatar')}),
+        (u'Доски', {'fields': ('boards',)}),
     )
 
     add_fieldsets = (

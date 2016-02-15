@@ -1,9 +1,9 @@
 angular
     .module('Kanban')
-    .directive('inviteMemberPopover', ['InvitedMembers', inviteMemberPopover]);
+    .directive('inviteMemberPopover', ['InvitedMember', inviteMemberPopover]);
 
 //Выпадающее меню для приглашения нового пользователя
-function inviteMemberPopover(InvitedMembers) {
+function inviteMemberPopover(InvitedMember) {
     var directive = {
         templateUrl: 'invite-member-popover.html',
         restrict: 'A',
@@ -32,9 +32,23 @@ function inviteMemberPopover(InvitedMembers) {
                 }
             });
             // Приглашение нового пользователя
+            // Todo: зафиксировать ошибки
             scope.inviteMember = function () {
-                InvitedMembers.post(scope.invited_member, function (result) {
-                    scope.$parent.new_invited_member = result;
+                InvitedMember.post(scope.invited_member, function (result) {
+                }, function (error) {
+                    if (error.status == 302) {
+                        console.log('Данный пользователь уже в списке')
+                    }
+                    else if (error.status == 303) {
+                        console.log('Вы добавляете себя')
+                    }
+                    else if (error.status == 405) {
+                        console.log('Данный пользователь уже состоит в этой доске')
+                    }
+                    else {
+                        console.log('Возникла непредвиденная ошибка')
+                    }
+
                 })
             };
         }

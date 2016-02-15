@@ -4,6 +4,7 @@ angular.module('Kanban')
 function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
     var vm = this;
 
+
     //Цвет задачи
     vm.getColor = function (priority) {
         if (priority == 1) {
@@ -16,6 +17,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             return 'warn'
         }
     };
+
     // Получаем авторизованного пользователя
     CurrentUser.get({}, {}).$promise.then(function (data) {
 
@@ -28,6 +30,13 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             $dragon.subscribe('board', 'board_channel', {}).then(function (response) {
                 vm.dataMapper = new DataMapper(response.data);
             });
+            // Пользователи, с которыми есть общие доски - Коллеги
+            $dragon.getList('user', {}).then(function (response) {
+                vm.colleagues = response.data;
+            });
+            $dragon.subscribe('user', 'user_channel', {boards__in: [1, 2, 3]}).then(function (response) {
+                vm.dataMapper = new DataMapper(response.data);
+            });
         });
 
     }, function (data) {
@@ -37,9 +46,17 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
     // Ловим изменения в списке  досок.
     $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'board_channel') > -1) {
-            //console.log(message);
             $scope.$apply(function () {
-                vm.dataMapper.mapData(vm.boards, message);
+
+            });
+        }
+        //Изменения в списке коллег
+        if (indexOf.call(channels, 'user_channel') > -1) {
+            $scope.$apply(function () {
+                vm.dataMapper.mapData(vm.colleagues, message);
+                if (message.data.id != vm.user.id) {
+                    //vm.dataMapper.mapData(vm.boards, message);
+                }
             });
         }
     });

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for kanban project.
 
@@ -8,7 +9,16 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
+
+Следует помнить об изменениях в swamp_dragon.
+В models.py в _self_publish_model_m2m_change:
+    if action=='post_add' and pk_set!=None and issubclass(model, SelfPublishModel):
+        for object_ in  model.objects.filter(id__in=pk_set):
+            object_._publish(PUBACTIONS.updated, object_._serializer.opts.publish_fields)
+В channel_utils.py в has_related_value:
+Удалено условие if hasattr(attr, 'all').
 """
+
 
 import os
 
@@ -37,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 
     'rest_framework',
 

@@ -1,8 +1,8 @@
 angular.module('Kanban')
     .controller('BoardSettingsDialogCtrl', ['$mdDialog', '$scope', 'Boards', 'CreateBoard',
-        'ChangeBoardColumns', 'Colleagues', 'InvitedMembers', 'board', 'columns', BoardSettingsDialogCtrl]);
+        'ChangeBoardColumns', 'InvitedMember', 'board', 'columns', BoardSettingsDialogCtrl]);
 function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
-                                 ChangeBoardColumns, Colleagues, InvitedMembers, board, columns) {
+                                 ChangeBoardColumns, InvitedMember, board, columns) {
     var vm = this;
     vm.columns = [];
     vm.first_columns = [];
@@ -45,10 +45,10 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
 
 
     // В случае изменения существующей доски, пробегаемся по списку и добавляем пользователей, которые уже работают над ней.
-
-    Colleagues.get({}, {}).$promise.then(function (colleagues) {
-        vm.colleagues = colleagues;
-
+    vm.colleagues = $scope.main_ctrl.colleagues;
+    $scope.$watch(function () {
+        return vm.colleagues
+    }, function (colleagues) {
         for (var j = 0; j < colleagues.length; j++) {
 
             if (vm.changing) {
@@ -61,9 +61,25 @@ function BoardSettingsDialogCtrl($mdDialog, $scope, Boards, CreateBoard,
         }
         vm.first_members = angular.copy(vm.members);
     });
-    InvitedMembers.get({}, {}).$promise.then(function (invited_members) {
-        console.log(invited_members)
-    });
+    /*    Colleagues.get({}, {}).$promise.then(function (colleagues) {
+     vm.colleagues = colleagues;
+
+     for (var j = 0; j < colleagues.length; j++) {
+
+     if (vm.changing) {
+     for (var i = 0; i < vm.board.members.length; i++) {
+     if (vm.board.members[i] == colleagues[j].id) {
+     vm.members.push(colleagues[j]);
+     }
+     }
+     }
+     }
+     vm.first_members = angular.copy(vm.members);
+     });*/
+
+    //InvitedMembers.get({}, {}).$promise.then(function (invited_members) {
+    //    console.log(invited_members)
+    //});
 
 
     //После сохранения изменения в доске, если они были, сохраняются изменения в колонках

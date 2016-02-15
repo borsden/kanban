@@ -1,15 +1,16 @@
 <span class="md-headline column_header" layout="row" layout-align="center center">Подтвержденные</span>
 <md-divider vertical></md-divider>
 <md-list>
-    <md-list-item class="md-2-line" ng-repeat="colleague in colleagues_ctrl.colleagues">
+    <md-list-item class="md-2-line" ng-repeat="colleague in main_ctrl.colleagues">
         <img ng-src="{{ colleague.avatar }}" class="md-avatar colleague_avatar"
              alt="{{ colleague.initials }}"/>
 
         <div class="md-list-item-text" layout="column">
             <h3>{{ colleague.email }}</h3>
             <h4>{{ colleague.fullname }}</h4>
-
-            <p><span ng-repeat="board in colleague.boards" class="board" ui-sref="board({id:{{ board.id }}})">{{ board.title }}
+            <!--Создаем список досок, в которых участвуют оба пользователя-->
+            <p><span ng-repeat="board in colleagues_ctrl.getBoards(colleague, main_ctrl.boards)" class="board"
+                     ui-sref="board({id:{{ board.id }}})">{{ board.title }}
                 <!--После каждой доски, кроме последней, добавляем запятую-->
                 <span ng-if="!$last">,</span>
             </span>

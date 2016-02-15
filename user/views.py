@@ -51,15 +51,18 @@ class UpdateUser(UpdateAPIView):
 
 class LoginUser(APIView):
     def post(self, request, format=None):
-        data = json.loads(request.body)
-        email = data.get('email', None)
-        password = data.get('password', None)
+        # print request.data
+        email = request.data['email']
+        password = request.data['password']
         account = authenticate(email=email, password=password)
-
         if account is not None:
-            login(request, account)
-            serializer = serializers.UserSerializer(account)
-            return Response(serializer.data)
+            try:
+                login(self.request, account)
+                serializer = serializers.UserSerializer(account)
+                return Response(serializer.data)
+            except Exception as e:
+                print e
+                return Response({}, status=status.HTTP_409_CONFLICT)
         else:
             return Response({u'Email/пароль не подходят'}, status=status.HTTP_401_UNAUTHORIZED)
 

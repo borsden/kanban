@@ -11,9 +11,9 @@
                    md-style-theme="default"
                    md-style-color-attrs="background-color">
             <md-tooltip>Создать доску</md-tooltip>
-            <span md-style-color>
-                <md-icon class="material-icons" style="color:inherit">add</md-icon>
-            </span>
+                <span md-style-color>
+                    <md-icon class="material-icons" style="color:inherit">add</md-icon>
+                </span>
         </md-button>
         <!--Окно приглашения пользователя-->
         <md-menu-content width="4" invite-member-popover>
@@ -30,8 +30,8 @@
             <h3>{{ invited_member.email }}</h3>
 
             <p> <span ui-sref="board({id:{{ invited_member.board }}})" class="board">
-                {{invited_member.board_title}}
-                </span>
+                    {{invited_member.board_title}}
+                    </span>
             </p>
         </div>
         <!--Кнопка удаления нашего приглашения-->

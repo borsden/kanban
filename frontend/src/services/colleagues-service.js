@@ -1,15 +1,8 @@
 //Сервис коллег
 angular.module('Kanban')
-    .factory('Colleagues', ['$resource', 'Constants',
+    .factory('InvitedMember', ['$resource', 'Constants',
         function ($resource, Constants) {
-            return $resource(Constants.apiUrl + 'colleagues/ ', {}, {
-                get: {method: 'GET', isArray: true}
-            });
-        }])
-    .factory('InvitedMembers', ['$resource', 'Constants',
-        function ($resource, Constants) {
-            return $resource(Constants.apiUrl + 'invited_members/ ', {}, {
-                get: {method: 'GET', isArray: true},
+            return $resource(Constants.apiUrl + 'invited_member/ ', {}, {
                 post: {method: 'POST'}
             });
         }])
@@ -19,16 +12,10 @@ angular.module('Kanban')
                 delete: {method: 'DELETE'}
             });
         }])
-    .factory('AllFollowers', ['$resource', 'Constants',
-        function ($resource, Constants) {
-            return $resource(Constants.apiUrl + 'all_followers/ ', {}, {
-                get: {method: 'GET', isArray: true}
-            });
-        }])
     .factory('Follower', ['$resource', 'Constants',
         function ($resource, Constants) {
             return $resource(Constants.apiUrl + 'follower/:id/ ', {id: "@id"}, {
-                update: {method: 'PUT', isArray: true}
+                update: {method: 'PUT'}
             });
         }])
     .factory('DeleteFollower', ['$resource', 'Constants',

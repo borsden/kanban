@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.utils.crypto import get_random_string
+from swampdragon.models import SelfPublishModel
+from user import router_serializers
 
 
 class UserManager(BaseUserManager):
@@ -29,11 +32,13 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(SelfPublishModel, AbstractBaseUser):
     # Отображение в админке
     class Meta:
         verbose_name = u'пользователь'
         verbose_name_plural = u'Пользователи'
+
+    serializer_class = router_serializers.UserRouterSerializer
 
     email = models.EmailField(
         verbose_name=u'Email',
@@ -47,14 +52,17 @@ class User(AbstractBaseUser):
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
 
+    random_string = models.CharField(max_length=10, verbose_name=u"Случайная строка", blank=True,
+                                     default=get_random_string(length=10))
+
     # Аватар
     avatar = models.ImageField(verbose_name=u'Аватар', blank=True, upload_to='avatars')
     # Специальная библиотека django-imagekit, которая сохраняет полученную картинку jpeg'ом
     # с определенным размером, качеством и рандомным именем.
     # avatar_thumbnail = ImageSpecField(source='avatar',
     # processors=[ResizeToFill(300, 300)],
-    #                                   format='JPEG',
-    #                                   options={'quality': 60})
+    # format='JPEG',
+    # options={'quality': 60})
 
     # Значение имени и почты, которое мы используем для отображения, является свойством
     @property
@@ -121,10 +129,20 @@ class User(AbstractBaseUser):
         # Возвращаем True, иначе указываем свои собственные условия
         return True
 
-    # Админка django требует, чтобы моедль пользователя имела данные методы
+    # Админка django требует, чтобы модель пользователя имела данные методы
     def get_full_name(self):
         return self.name_and_email
 
     def get_short_name(self):
         return self.name_and_email
+
+    def save(self, *args, **kwargs):
+        # print self.boards.all().values_list('members')
+        return super(User, self).save(args, kwargs)
+
+
+
+
+
+
 

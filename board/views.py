@@ -1,3 +1,4 @@
+# coding=utf-8
 import ast
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -33,6 +34,8 @@ class DetailBoard(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         try:
+            # Добавляем текущего пользователя в список пользователей доски
+            # Сохраняем список пользователей доски отдельно, чтобы swamp_dragon корректно зафиксировал его изменение
             request.data['members'].append(self.request.user.id)
         except Exception as e:
             return Response({}, status=status.HTTP_409_CONFLICT)
