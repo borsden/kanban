@@ -18,11 +18,18 @@ class CardRouter(ModelRouter):
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        return self.model.objects.filter(column__board__id=kwargs['column__board__id'],
-                                         column__board__members__id=self.connection.user.id)
+        if 'column__board__id' in kwargs or 'worker__id' in kwargs:
+            return self.model.objects.filter(column__board__members__id=self.connection.user.id, **kwargs)
+        return self.model.objects.filter(column__board__members__id=self.connection.user.id)
 
     def get_subscription_contexts(self, **kwargs):
-        return {'column__board__id': kwargs['column__board__id'], 'column__board__members__id': self.connection.user.id}
+        if 'column__board__id' in kwargs:
+            return {'column__board__members__id': self.connection.user.id,
+                    'column__board__id': kwargs['column__board__id']}
+        elif 'worker__id' in kwargs:
+            return {'column__board__members__id': self.connection.user.id,
+                    'worker__id': kwargs['worker__id']}
+        return {'column__board__members__id': self.connection.user.id}
 
 
 route_handler.register(CardRouter)

@@ -1,18 +1,13 @@
 <div layout="row" class="md-whiteframe-z2 content-header" layout-align="center center">
     <h3 class="md-headline">Коллеги</h3>
 </div>
-<div layout="row">
-    <md-whiteframe class="md-whiteframe-8dp" flex layout="row">
-        <div flex>
-            <confirm-members></confirm-members>
-        </div>
-        <md-divider vertical></md-divider>
-        <div flex>
-            <followers></followers>
-        </div>
-        <md-divider vertical></md-divider>
-        <div flex>
-            <invited-members></invited-members>
-        </div>
-    </md-whiteframe>
-</div>
+<md-whiteframe class="md-whiteframe-8dp content" flex layout="row" style="margin: 10px;">
+    <div flex confirm-members layout="column">
+    </div>
+    <md-divider vertical></md-divider>
+    <div flex followers layout="column">
+    </div>
+    <md-divider vertical></md-divider>
+    <div flex invited-members layout="column">
+    </div>
+</md-whiteframe>

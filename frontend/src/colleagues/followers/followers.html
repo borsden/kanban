@@ -1,6 +1,6 @@
 <span class="md-headline column_header" layout="row" layout-align="center center">Заявки вам</span>
 <md-divider vertical></md-divider>
-<md-list>
+<md-list class="container-100">
     <md-list-item class="md-2-line" ng-repeat="follower in colleagues_ctrl.followers">
         <img ng-src="{{ follower.user.avatar }}" class="md-avatar colleague_avatar"
              alt="{{ follower.user.initials }}"/>

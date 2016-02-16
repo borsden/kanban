@@ -4,7 +4,6 @@ function BoardCtrl($scope, $dragon, $stateParams) {
     //Получаем id текущей доски
     var board_id = $stateParams.id;
     var vm = this;
-
     // Перменные для ожидания ответа с колонками и карточками от сервера
     vm.dict_done = {columns_done: false, cards_done: false};
     vm.all_done = false;

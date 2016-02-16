@@ -8,8 +8,7 @@
                    ng-click="column_ctrl.addCard($event)"
                    md-style-color="background"
                    md-style-theme="default"
-                   md-style-color-attrs="background-color"
-                >
+                   md-style-color-attrs="background-color">
             <md-tooltip>Добавить карту</md-tooltip>
             <span md-style-color>
                 <md-icon class="material-icons" style="color:inherit">add</md-icon>
@@ -19,7 +18,7 @@
 
 </div>
 
-<div layout="column" flex class="card-container">
+<div layout="column" flex class="card-container container-100">
     <!--Шаблон новой карточки-->
     <div layout="column" style="min-height: 100px" ng-show="column_ctrl.add">
         <md-card class="md-whiteframe-z2" ng-show="column_ctrl.add"

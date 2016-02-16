@@ -4,7 +4,7 @@ function ProfileCtrl($scope, $dragon) {
     var vm = this;
     $dragon.onReady(function () {
         // Получаем карточки текущего пользователя
-        $dragon.getList('card', {worker_id: $scope.main_ctrl.user.id}).then(function (response) {
+        $dragon.getList('card', {worker__id: $scope.main_ctrl.user.id}).then(function (response) {
             vm.user_cards = response.data;
         });
         $dragon.subscribe('card', 'user_card_channel', {worker__id: $scope.main_ctrl.user.id}).then(function (response) {
