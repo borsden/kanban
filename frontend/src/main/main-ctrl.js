@@ -47,15 +47,14 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
     $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'board_channel') > -1) {
             $scope.$apply(function () {
-
+                vm.dataMapper.mapData(vm.boards, message);
             });
         }
         //Изменения в списке коллег
         if (indexOf.call(channels, 'user_channel') > -1) {
             $scope.$apply(function () {
-                vm.dataMapper.mapData(vm.colleagues, message);
                 if (message.data.id != vm.user.id) {
-                    //vm.dataMapper.mapData(vm.boards, message);
+                    vm.dataMapper.mapData(vm.colleagues, message);
                 }
             });
         }
