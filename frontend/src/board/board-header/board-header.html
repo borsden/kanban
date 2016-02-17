@@ -17,6 +17,12 @@
                 <md-tooltip>Настройки</md-tooltip>
                 <md-icon class="material-icons">settings</md-icon>
             </md-button>
+            <!--Пользователи доски-->
+            <md-button aria-label="board settings" class="md-fab md-raised md-mini"
+                       ng-click="board_header_ctrl.boardMembers($event, board_ctrl.current_board)">
+                <md-tooltip>Пользователи</md-tooltip>
+                <md-icon class="material-icons">group</md-icon>
+            </md-button>
             <!--Статистика-->
             <md-button aria-label="board statistic" class="md-fab md-raised md-mini">
                 <md-tooltip>Статистика</md-tooltip>

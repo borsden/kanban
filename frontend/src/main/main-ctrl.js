@@ -34,7 +34,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
             $dragon.getList('user', {}).then(function (response) {
                 vm.colleagues = response.data;
             });
-            $dragon.subscribe('user', 'user_channel', {boards__in: [1, 2, 3]}).then(function (response) {
+            $dragon.subscribe('user', 'user_channel', {}).then(function (response) {
                 vm.dataMapper = new DataMapper(response.data);
             });
         });

@@ -1,6 +1,6 @@
 angular
     .module('Kanban')
-    .directive('changeBoardColumns', [boardSettingsColumns]);
+    .directive('boardSettingsColumns', [boardSettingsColumns]);
 
 function boardSettingsColumns() {
     var directive = {

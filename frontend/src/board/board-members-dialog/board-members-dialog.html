@@ -1,0 +1,109 @@
+<!--Окно настройки или создания доски-->
+<md-dialog aria-label="editing" ng-cloak flex="50">
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="board-members__title">
+                <h3 layout="row" layout-align="center center" class="md-headline" style="margin-top: 0;">
+                    Пользователи доски
+                </h3>
+                <md-divider></md-divider>
+                <div class="board-members__title__button">
+                    <!--Кнопка добавления приглашения с выпадающим меню-->
+                    <md-menu md-position-mode="target-right target">
+                        <md-button class="md-fab md-raised md-mini"
+                                   aria-label="Добавить пользователя"
+                                   ng-click="board_members_dialog_ctrl.openInviteEmailPopover($mdOpenMenu, $event)"
+
+                                   md-style-color="background"
+                                   md-style-theme="default"
+                                   md-style-color-attrs="background-color">
+                            <md-tooltip>Добавить пользователя</md-tooltip>
+                        <span md-style-color>
+                            <md-icon class="material-icons" style="color:inherit">add</md-icon>
+                        </span>
+                        </md-button>
+                        <!--Окно приглашения пользователя-->
+                        <md-menu-content width="4" invite-member-popover board="{{board_members_dialog_ctrl.board.id}}">
+                        </md-menu-content>
+                    </md-menu>
+
+                </div>
+            </div>
+            <div ng-repeat="member in main_ctrl.colleagues|boardMembers:board_members_dialog_ctrl.board.members"
+                 layout="row">
+                <img ng-src="{{ member.avatar }}" class="md-avatar colleague_avatar colleague_img"
+                     alt="{{ member.initials }}"/>
+
+                <div flex>
+                    <h4 class="md-subhead">{{ member.email }}</h4>
+
+                    <p>{{ member.fullname }}</p>
+                </div>
+                <div flex="35">
+                    <h4 class="md-subhead">Пользователь</h4>
+                </div>
+                <span flex="5"></span>
+                <!--Удаляем пользователя-->
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button md-warn" aria-label="Cancel"
+                               ng-click="$mdOpenMenu()">
+
+                        <md-tooltip>Удалить</md-tooltip>
+                        <md-icon class="material-icons"
+                                 md-style-color="warn"
+                                 md-style-theme="default"
+                                 md-style-color-attrs="color">delete
+                        </md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <span style="text-align: center;">Подтвердите удаление</span>
+
+                        <div layout="row">
+                            <md-button class="md-raised md-warn"
+                                       style="width: 50%;"
+                                       ng-click="board_members_dialog_ctrl.deleteMember(member)">
+                                Удалить
+                            </md-button>
+                            <md-button style="width: 100%;">Отменить</md-button>
+                        </div>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+            <md-divider></md-divider>
+            <div ng-repeat="invited_member in board_members_dialog_ctrl.invited_members" layout="row">
+                <div style="width: 40px; margin-right: 16px;"></div>
+                <div flex>
+                    <h4 class="md-subhead">{{ invited_member.email }}</h4>
+                </div>
+                <div flex="35">
+                    <h4 class="md-subhead">Ожидает</h4>
+                </div>
+                <span flex="5"></span>
+                <!--Удаляем приглашение-->
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button md-warn" aria-label="Cancel"
+                               ng-click="$mdOpenMenu()">
+
+                        <md-tooltip>Удалить</md-tooltip>
+                        <md-icon class="material-icons"
+                                 md-style-color="warn"
+                                 md-style-theme="default"
+                                 md-style-color-attrs="color">delete
+                        </md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <span style="text-align: center;">Подтвердите удаление</span>
+
+                        <div layout="row">
+                            <md-button class="md-raised md-warn"
+                                       ng-click="board_members_dialog_ctrl.deleteInvitedMember(invited_member)">
+                                Удалить
+                            </md-button>
+                            <md-button style="width: 100%;">Отменить</md-button>
+                        </div>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

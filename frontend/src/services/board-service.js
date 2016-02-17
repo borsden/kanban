@@ -19,4 +19,10 @@ angular.module('Kanban')
                     method: 'PUT'
                 }
             });
+        }])
+    .factory('DeleteBoardMember', ['$resource', 'Constants',
+        function ($resource, Constants) {
+            return $resource(Constants.apiUrl + 'delete_board_member/:id/ ', {id: "@id"}, {
+                delete: {method: 'PUT'}
+            });
         }]);

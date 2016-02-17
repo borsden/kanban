@@ -42,5 +42,24 @@ class InvitedMemberRouter(ModelRouter):
         return {'user__id': self.connection.user.id}
 
 
+class InvitedMemberBoardRouter(ModelRouter):
+    """Router для приглашений в данную доску"""
+    valid_verbs = ['subscribe', 'get_list']
+    route_name = 'invited_member_board'
+    serializer_class = router_serializers.InvitationRouterSerializer
+    model = Invitation
+
+    def get_object(self, **kwargs):
+        return self.model.objects.get(email=self.connection.user.email, pk=kwargs['id'])
+
+    def get_query_set(self, **kwargs):
+        return self.model.objects.filter(board__members__id=self.connection.user.id, board__id=kwargs['board__id'])
+
+    # Указываем, что доступ имеется только к приглашениям, отправленным нам
+    def get_subscription_contexts(self, **kwargs):
+        return {'board__id': kwargs['board__id'], 'board__members__id': self.connection.user.id}
+
+
 route_handler.register(FollowerRouter)
 route_handler.register(InvitedMemberRouter)
+route_handler.register(InvitedMemberBoardRouter)

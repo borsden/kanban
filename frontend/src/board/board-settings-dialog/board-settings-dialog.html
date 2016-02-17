@@ -5,6 +5,11 @@
 
         <md-dialog-content>
             <div class="md-dialog-content">
+                <h3 layout="row" layout-align="center center" class="md-headline"
+                    ng-if="board_settings_dialog_ctrl.changing" style="margin-top: 0;">Редактирование доски</h3>
+
+                <h3 layout="row" layout-align="center center" class="md-headline"
+                    ng-if="!board_settings_dialog_ctrl.changing" style="margin-top: 0;">Создание доски</h3>
                 <!--Название доски-->
                 <md-input-container md-no-float class="md-block">
                     <label>Название</label>
@@ -19,13 +24,10 @@
                 <!--Описание доски-->
                 <md-input-container md-no-float class="md-block">
                     <label>Описание</label>
-                    <textarea name="description" ng-model="board_settings_dialog_ctrl.board.description"></textarea>
+                            <textarea name="description"
+                                      ng-model="board_settings_dialog_ctrl.board.description"></textarea>
                 </md-input-container>
-
-                <!--Колонки доски-->
                 <board-settings-columns></board-settings-columns>
-                <!--Пользователи доски-->
-                <board-settings-members></board-settings-members>
             </div>
 
         </md-dialog-content>

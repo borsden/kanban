@@ -88,10 +88,37 @@ class InvitedMember(CreateAPIView):
 # Удаление нашего приглашения
 class DeleteInvitedMember(DestroyAPIView):
     def get_queryset(self):
-        return Invitation.objects.filter(user=self.request.user)
+        # return Invitation.objects.filter(user=self.request.user)
+        return Invitation.objects.filter(board__members=self.request.user)
 
     def get_serializer_class(self):
         return serializers.InvitedMemberSerializer
 
     def delete(self, request, *args, **kwargs):
         return super(DeleteInvitedMember, self).delete(request, *args, **kwargs)
+
+
+# Удаляем пользователя из списка пользователей доски
+class DeleteBoardMember(UpdateAPIView):
+    def get_queryset(self):
+        return Board.objects.filter(members=self.request.user)
+
+    def get_serializer_class(self):
+        return serializers.BoardColleagueSerializer
+
+    def put(self, request, *args, **kwargs):
+
+        try:
+            # Проверка на присутствие текущего пользователя в members доски
+            board = Board.objects.get(id=request.data['board_id'], members=self.request.user)
+            del_user = User.objects.get(id=request.data['id'])
+            # Проверка на присутсвие удаляемого пользователя в members доски
+            if not board.members.filter(id=del_user.id).exists():
+                raise Exception
+            # Удаляем пользователя
+            board.members.remove(del_user)
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print e
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+

@@ -1,5 +1,5 @@
 <div layout="row" layout-md="column" layout-align="space-between center">
-    <div flex flex-gt-md="90" flex-gt-lg="90">
+    <div flex flex-gt-md="95" flex-gt-lg="90">
         <md-input-container md-no-float class="md-block">
             <label>Категория</label>
             <input type="text" md-maxlength="20" ng-maxlength="20" name="column"
@@ -7,11 +7,14 @@
 
         </md-input-container>
     </div>
-    <div flex layout="row">
-        <md-button
-                ng-disabled="board_settings_columns_ctrl.adding_column.title.length==0"
-                ng-click="board_settings_columns_ctrl.addColumn()">Добавить
-        </md-button>
+    <div flex>
+        <md-icon class="material-icons"
+                 md-style-color="primary"
+                 md-style-theme="default"
+                 md-style-color-attrs="color" style="cursor:pointer;"
+                 ng-click="board_settings_columns_ctrl.addColumn()"
+                 ng-disabled="board_settings_columns_ctrl.adding_column.title.length==0">add
+        </md-icon>
     </div>
 </div>
 <!--Позволяем сортировать колонки. Контроллер сортировки -ColumnSortCtrl -->
@@ -21,14 +24,14 @@
             <!--В случае, если колонка удалена, перестаем ее отображать-->
             <div ng-if="column.type !== 'deleting'">
                 <div ng-if="board_settings_columns_ctrl.changing_column_original!=column">
-                    <md-list-item class="" layout="row">
+                    <md-list-item layout="row">
 
-                        <div flex flex-gt-md="90" flex-gt-lg="85">
+                        <div flex>
                             <!--Позволяем изменять порядок колонок при перетакивании с помощью этой колонки-->
                             <!--<md-icon class="material-icons handle">swap_vert</md-icon>-->
                             <span>{{ column.title }}</span>
                         </div>
-                        <div flex layout="row">
+                        <div flex="10" layout="row">
 
 
                             <md-button class="md-icon-button md-primary" aria-label="Cancel"
@@ -64,10 +67,9 @@
                 </div>
                 <div layout="row" layout-md="column" layout-align="space-between center"
                      ng-if="board_settings_columns_ctrl.changing_column_original==column">
-                    <form name="changing_column_title_form" novalidate
-                          flex>
+                    <form name="changing_column_title_form" novalidate flex>
 
-                        <div flex flex-gt-md="90" flex-gt-lg="90">
+                        <div flex>
                             <md-input-container md-no-float class="md-block">
                                 <label>Название</label>
                                 <input type="text" md-maxlength="20" ng-maxlength="20" required name="title"
@@ -80,7 +82,7 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex layout="row">
+                        <div flex="10" layout="row">
                             <md-button class="md-icon-button md-primary" style="width: 50%;" aria-label="Confirm"
                                        ng-disabled="changing_column_title_form.$invalid"
                                        ng-click="board_settings_columns_ctrl.changeColumnConfirm()">

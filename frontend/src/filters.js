@@ -11,4 +11,18 @@ angular.module('Kanban')
             }
             return tmp;
         }
+    })
+    .filter('boardMembers', function () {
+        return function (items, board_members_id) {
+            var tmp = {};
+            var item, index;
+            for (var i in items) {
+                item = items[i];
+                index = board_members_id.indexOf(item.id);
+                if (index >= 0) {
+                    tmp[i] = item;
+                }
+            }
+            return tmp;
+        }
     });

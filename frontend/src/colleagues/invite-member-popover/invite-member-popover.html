@@ -6,7 +6,7 @@
         <input name="description" type="email" ng-model="invited_member.email" required/>
     </md-input-container>
 
-    <md-input-container class="md-block">
+    <md-input-container class="md-block" ng-if="!board">
         <label>Доска</label>
         <md-select name="board" ng-model="invited_member.board"
                    md-container-class="md-select-menu-container__invite-email__boards">

@@ -2,8 +2,8 @@
 <md-divider vertical></md-divider>
 <md-list class="container-100">
     <md-list-item class="md-2-line" ng-repeat="follower in colleagues_ctrl.followers">
-        <img ng-src="{{ follower.user.avatar }}" class="md-avatar colleague_avatar"
-             alt="{{ follower.user.initials }}"/>
+        <img ng-src="{{ follower.avatar }}" class="md-avatar colleague_avatar"
+             alt="{{ follower.initials }}"/>
 
         <div class="md-list-item-text">
             <h3>{{ follower.user__email }}</h3>
@@ -18,7 +18,7 @@
                  md-style-color-attrs="color" style="cursor:pointer;"
                  ng-click="colleagues_ctrl.submitFollower(follower)">done
         </md-icon>
-        <!--Откклоняем приглашение-->
+        <!--Отклоняем приглашение-->
         <md-icon class="material-icons"
                  md-style-color="warn"
                  md-style-theme="default"

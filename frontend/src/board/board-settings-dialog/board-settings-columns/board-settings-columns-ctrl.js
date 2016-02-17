@@ -1,5 +1,5 @@
 angular.module('Kanban')
-    .controller('BoardColumnsCtrl', [BoardSettingsColumnsCtrl]);
+    .controller('BoardSettingsColumnsCtrl', [BoardSettingsColumnsCtrl]);
 function BoardSettingsColumnsCtrl() {
     var vm = this;
     vm.adding_column = {title: ''};

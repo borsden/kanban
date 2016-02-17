@@ -9,4 +9,5 @@ urlpatterns = patterns('',
                        url(r'^delete_follower/(?P<pk>[0-9]+)/$', views.DeleteFollower.as_view()),
                        url(r'^invited_member/$', views.InvitedMember.as_view()),
                        url(r'^delete_invited_member/(?P<pk>[0-9]+)/$', views.DeleteInvitedMember.as_view()),
+                       url(r'^delete_board_member/(?P<pk>[0-9]+)/$', views.DeleteBoardMember.as_view()),
                        )
