@@ -45,15 +45,16 @@ function BoardCtrl($scope, $dragon, $stateParams) {
 
             });
 
+        }, function (error) {
+            vm.get_board_error = true;
         });
         $dragon.subscribe('board', 'current_board_channel', {id: board_id}).then(function (response) {
             vm.dataMapper = new DataMapper(response.data);
         });
     });
 
-
-    $dragon.onChannelMessage(function (channels, message) {
-
+    if (!vm.get_board_error) {
+        $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'current_board_channel') > -1) {
             $scope.$apply(function () {
                 vm.dataMapper.mapData(vm.current_board, message);
@@ -70,5 +71,7 @@ function BoardCtrl($scope, $dragon, $stateParams) {
             });
         }
     });
+    }
+
 
 }

@@ -1,7 +1,7 @@
 angular.module('Kanban')
-    .controller('MainCtrl', ['$scope', '$dragon', 'dateFormatter', 'CurrentUser',
+    .controller('MainCtrl', ['$scope', '$state', '$dragon', 'dateFormatter', 'CurrentUser',
         '$mdDialog', '$mdMedia', 'LogoutUser', '$window', MainCtrl]);
-function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
+function MainCtrl($scope, $state, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMedia, LogoutUser, $window) {
     var vm = this;
 
 
@@ -26,6 +26,7 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
         $dragon.onReady(function () {
             $dragon.getList('board', {}).then(function (response) {
                 vm.boards = response.data;
+
             });
             $dragon.subscribe('board', 'board_channel', {}).then(function (response) {
                 vm.dataMapper = new DataMapper(response.data);
@@ -46,6 +47,9 @@ function MainCtrl($scope, $dragon, dateFormatter, CurrentUser, $mdDialog, $mdMed
     // Ловим изменения в списке  досок.
     $dragon.onChannelMessage(function (channels, message) {
         if (indexOf.call(channels, 'board_channel') > -1) {
+            if (message.action == 'deleted' && $state.is('board', {id: message.data.id})) {
+                $state.go('profile')
+            }
             $scope.$apply(function () {
                 vm.dataMapper.mapData(vm.boards, message);
             });

@@ -1,9 +1,14 @@
-<!--Header доски с названием и навигацией-->
-<div layout="row" class="md-whiteframe-z2 content-header" board-header layout-align="center center"></div>
+<div layout="row" class="md-whiteframe-z2 content-header" board-header layout-align="center center"
+     ng-if="!board_ctrl.get_board_error"></div>
 <!--Колонки доски-->
-<div layout="row" layout-xs="column" class="content" ng-if="board_ctrl.all_done">
+<div layout="row" layout-xs="column" class="content" ng-if="board_ctrl.all_done && !board_ctrl.get_board_error">
     <md-whiteframe class="md-whiteframe-8dp" flex ng-repeat="column in board_ctrl.columns| orderBy:'position'"
                    layout="column"
                    column="{{ column }}">
     </md-whiteframe>
+</div>
+<div ng-if="board_ctrl.get_board_error" flex layout="column" layout-align="center center">
+
+    <h1>К сожалению, у вас нет доступа к данной доске.</h1>
+    <md-button class="md-primary" ui-sref="profile">Перейти в профиль</md-button>
 </div>

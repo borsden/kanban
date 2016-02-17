@@ -27,9 +27,9 @@ function BoardMembersDialogCtrl($state, $dragon, $mdDialog, $scope, DeleteInvite
     };
     vm.deleteMember = function (member) {
         DeleteBoardMember.delete({id: member.id, board_id: vm.board.id}, function (response) {
-            if (member.id == $scope.main_ctrl.user.id) {
-                $state.go('profile')
-            }
+            //if (member.id == $scope.main_ctrl.user.id) {
+            //    $state.go('profile')
+            //}
         });
     };
     //Добавление приглашения пользователя
