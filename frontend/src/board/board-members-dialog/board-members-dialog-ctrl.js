@@ -1,7 +1,7 @@
 angular.module('Kanban')
-    .controller('BoardMembersDialogCtrl', ['$dragon', '$mdDialog',
+    .controller('BoardMembersDialogCtrl', ['$state', '$dragon', '$mdDialog',
         '$scope', 'DeleteInvitedMember', 'DeleteBoardMember', 'board', BoardMembersDialogCtrl]);
-function BoardMembersDialogCtrl($dragon, $mdDialog, $scope, DeleteInvitedMember, DeleteBoardMember, board) {
+function BoardMembersDialogCtrl($state, $dragon, $mdDialog, $scope, DeleteInvitedMember, DeleteBoardMember, board) {
     var vm = this;
     vm.board = board;
     $dragon.onReady(function () {
@@ -27,6 +27,9 @@ function BoardMembersDialogCtrl($dragon, $mdDialog, $scope, DeleteInvitedMember,
     };
     vm.deleteMember = function (member) {
         DeleteBoardMember.delete({id: member.id, board_id: vm.board.id}, function (response) {
+            if (member.id == $scope.main_ctrl.user.id) {
+                $state.go('profile')
+            }
         });
     };
     //Добавление приглашения пользователя
