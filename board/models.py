@@ -30,7 +30,6 @@ class Board(SelfPublishModel, models.Model):
 def my_handler(instance, action, model, pk_set, **kwargs):
     # Swamp_dragon вызывает изменения в пользователях при добавлении
     # новой доски и при удалении любого пользователя из нее
-    print instance, action, model, pk_set, kwargs
     if action == 'post_add':
         for object_ in instance.members.all():
             object_._publish(PUBACTIONS.updated, object_._serializer.opts.publish_fields)
