@@ -17,6 +17,14 @@ angular.module('Kanban')
                 }
             });
         }])
+    .factory('ChangePassword', ['$resource', 'Constants',
+        function ($resource, Constants) {
+            return $resource(Constants.apiUrl + 'change_password/ ', {}, {
+                post: {
+                    method: 'POST'
+                }
+            });
+        }])
     //Сервис для входа пользователя
     .factory('LoginUser', ['$resource', 'Constants',
         function ($resource, Constants) {

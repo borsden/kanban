@@ -52,9 +52,6 @@ class User(SelfPublishModel, AbstractBaseUser):
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
 
-    random_string = models.CharField(max_length=10, verbose_name=u"Случайная строка", blank=True,
-                                     default=get_random_string(length=10))
-
     # Аватар
     avatar = models.ImageField(verbose_name=u'Аватар', blank=True, upload_to='avatars')
     # Специальная библиотека django-imagekit, которая сохраняет полученную картинку jpeg'ом
@@ -135,14 +132,3 @@ class User(SelfPublishModel, AbstractBaseUser):
 
     def get_short_name(self):
         return self.name_and_email
-
-    def save(self, *args, **kwargs):
-        # print self.boards.all().values_list('members')
-        return super(User, self).save(args, kwargs)
-
-
-
-
-
-
-

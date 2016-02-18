@@ -51,7 +51,6 @@ class UpdateUser(UpdateAPIView):
 
 class LoginUser(APIView):
     def post(self, request, format=None):
-        # print request.data
         email = request.data['email']
         password = request.data['password']
         account = authenticate(email=email, password=password)
@@ -84,6 +83,29 @@ class ChangeAvatar(APIView):
             user.avatar = base.get_raw_image(user_id=user.id)
             user.save(update_fields=['avatar'])
             return Response({'avatar': user.avatar.url}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print e
+            return Response({}, status=status.HTTP_409_CONFLICT)
+
+
+# Смена пароля текущего пользователя
+class ChangePassword(APIView):
+    def post(self, request):
+        try:
+            email = self.request.user.email
+            new_password = request.data['new_password']
+            account = authenticate(email=email, password=request.data['old_password'])
+            if account is None:
+                return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            if not (new_password and new_password == request.data['new_password']):
+                return Response(status=status.HTTP_303_SEE_OTHER)
+            else:
+                self.request.user.set_password(new_password)
+                self.request.user.save()
+                # Принудительно перезаходим
+                account = authenticate(email=email, password=new_password)
+                login(self.request, account)
+                return Response(status=status.HTTP_200_OK)
         except Exception as e:
             print e
             return Response({}, status=status.HTTP_409_CONFLICT)
