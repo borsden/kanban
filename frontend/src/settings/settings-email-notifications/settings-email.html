@@ -1,0 +1,38 @@
+<form name="settings_email_form" novalidate>
+    <div style="position: relative">
+        <!-- {{new_invited_member}} -->
+    <span class="md-headline column_header" layout="row"
+          layout-align="center center">Email уведомления</span>
+        <md-divider vertical></md-divider>
+        <!--Кнопка добавления приглашения с выпадающим меню-->
+        <md-button aria-label="Save Email Notification" class="md-fab md-accent md-raised"
+                   style="position: absolute; right: 0; bottom: -32px"
+                   ng-click="settings_email_ctrl.saveEmailNotification()"
+                   ng-disabled="settings_email_form.$invalid"
+                   ng-if="settings_email_ctrl.changingEmailNotification()">
+            <md-tooltip>Сохранить изменения</md-tooltip>
+            <md-icon class="material-icons">done</md-icon>
+        </md-button>
+    </div>
+    <div layout="column" style="padding-top:10px">
+        <div style="margin-left: 10px">
+            <div style="margin-left: 0">
+                <md-checkbox ng-model="settings_email_ctrl.email_notification.new_board" aria-label="New Board">
+                    Уведомлять о новых досках
+                </md-checkbox>
+                <md-checkbox ng-model="settings_email_ctrl.email_notification.new_task" aria-label="New Task">
+                    Уведомлять о новых ваших карточках
+                </md-checkbox>
+                <md-checkbox ng-model="settings_email_ctrl.email_notification.expired_task" aria-label="Expired Task">
+                    Уведомлять о просроченных карточках
+                </md-checkbox>
+                <md-checkbox ng-model="settings_email_ctrl.email_notification.entry" aria-label="Entry">
+                    Уведомлять о каждом входе
+                </md-checkbox>
+            </div>
+        </div>
+        <div style="margin-top: 30px; padding-left: 10px" layout="column">
+
+        </div>
+    </div>
+</form>

@@ -30,4 +30,5 @@ urlpatterns = patterns(
     url(r'^api/v1/', include('board.urls')),
     url(r'^api/v1/', include('user.urls')),
     url(r'^api/v1/', include('colleague.urls')),
+    url(r'^api/v1/', include('notification.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

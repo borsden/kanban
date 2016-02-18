@@ -7,6 +7,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from board.models import Board
 
 from .models import User
+from notification.models import EmailNotification
 
 
 class UserCreationForm(forms.ModelForm):
@@ -18,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'status')
+        fields = ('email',)
 
     def clean_password(self):
 
@@ -32,6 +33,7 @@ class UserCreationForm(forms.ModelForm):
         # Сохраняем пароль в виде хеша
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+
         if commit:
             user.save()
         return user
@@ -39,7 +41,10 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     """Форма изменения пользователя. Пароль хранится в виде хеша."""
-    password = ReadOnlyPasswordHashField()
+    password = ReadOnlyPasswordHashField(label=("Password"),
+                                         help_text=(
+                                             u"Вы можете изменить пароль, используя эту ссылку."
+                                             u" <a href=\"password/\">Изменить пароль</a>"))
     boards = forms.ModelMultipleChoiceField(Board.objects.all(), required=True)
 
     def __init__(self, *args, **kwargs):
@@ -63,10 +68,16 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'status', 'first_name', 'last_name', 'patronymic', 'is_admin', 'boards')
+        fields = (
+            'email', 'password', 'first_name', 'last_name', 'patronymic', 'is_admin', 'boards',)
 
     def clean_password(self):
         return self.initial["password"]
+
+
+class EmailNotificationInline(admin.StackedInline):
+    model = EmailNotification
+    verbose_name_plural = u'Email уведомления'
 
 
 class MyUserAdmin(UserAdmin):
@@ -75,12 +86,12 @@ class MyUserAdmin(UserAdmin):
     add_form = UserCreationForm
 
     # Данные поля отображаются в списке пользователей
-    list_display = ('email', 'status', 'is_admin')
+    list_display = ('email', 'is_admin')
     # По данным полям возможна фильтрация
-    list_filter = ('is_admin', 'status')
+    list_filter = ('is_admin',)
     #
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'status')}),
+        (None, {'fields': ('email', 'password',)}),
         (u'Административная часть', {'fields': ('is_admin',)}),
         (u'Профиль', {'fields': ('first_name', 'last_name', 'patronymic', 'avatar')}),
         (u'Доски', {'fields': ('boards',)}),
@@ -92,6 +103,7 @@ class MyUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2')}
          ),
     )
+    inlines = (EmailNotificationInline, )
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()

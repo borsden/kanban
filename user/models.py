@@ -3,8 +3,9 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-from django.utils.crypto import get_random_string
 from swampdragon.models import SelfPublishModel
+
+from notification.models import EmailNotification
 from user import router_serializers
 
 
@@ -22,6 +23,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         # Сохраняем пользователя
         user.save()
+        EmailNotification.create(user=user)
         return user
 
     def create_superuser(self, email, password):
@@ -45,21 +47,18 @@ class User(SelfPublishModel, AbstractBaseUser):
         max_length=255,
         unique=True,
     )
+
     # Имя
     first_name = models.CharField(max_length=15, verbose_name=u"Имя", blank=True)
+
     # Фамилия
     last_name = models.CharField(max_length=30, verbose_name=u"Фамилия", blank=True)
+
     # Отчество
     patronymic = models.CharField(max_length=20, verbose_name=u"Отчество", blank=True)
 
     # Аватар
     avatar = models.ImageField(verbose_name=u'Аватар', blank=True, upload_to='avatars')
-    # Специальная библиотека django-imagekit, которая сохраняет полученную картинку jpeg'ом
-    # с определенным размером, качеством и рандомным именем.
-    # avatar_thumbnail = ImageSpecField(source='avatar',
-    # processors=[ResizeToFill(300, 300)],
-    # format='JPEG',
-    # options={'quality': 60})
 
     # Значение имени и почты, которое мы используем для отображения, является свойством
     @property
@@ -95,9 +94,6 @@ class User(SelfPublishModel, AbstractBaseUser):
 
     # В случае, если переменная True, пользователь может является администратором
     is_admin = models.BooleanField(default=False, verbose_name=u'Админ')
-
-    # Зарегистрирован ли этот email или еще нет.
-    status = models.BooleanField(default=False, verbose_name=u'Активен')
 
     # Используем созданный нами UserManager для получения доступа к таким методам как create_user и т.д.
     objects = UserManager()

@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'board',
     'card',
     'column',
-    'colleague'
+    'colleague',
+    'notification'
 ]
 
 MIDDLEWARE_CLASSES = [
